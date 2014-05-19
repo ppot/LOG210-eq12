@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <?php
-
 	//debug usage
 	error_reporting(E_ALL);
 	ini_set('display_errors', True);
@@ -23,14 +22,16 @@
 			{
 				$user =  $_SESSION['username'];
 				echo "logged in as $user";
-				echo "<a href='javascript:authOut()'>logout</a>";
+				echo "<a href='javascript:app.user.oOut()'>logout</a>";
 				echo "<br/>";
-				echo "<a href='javascript:update()'>update address</a>";
+				echo "<a href='javascript:app.user.user_update()'>update address</a>";
 			}
+			
 			if(!isset($_SESSION['username']))
 			{
-				echo "<a href='javascript:auth()'>login</a>";
+				echo "<a href='javascript:app.user.oauth()'>login</a>";
 			}
+
 		?>
 		<div class="authentificationSpace">
 				<div id="connectPage">

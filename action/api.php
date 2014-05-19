@@ -46,6 +46,7 @@
 		else{
 			echo json_encode(0);
 		}
+
 		$mysqli->close();
 	}
 
@@ -141,6 +142,7 @@
 		    $out[] = $row;
 		}
 		echo json_encode($out);
+		
 		$mysqli->close();
 	}
 
