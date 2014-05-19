@@ -11,8 +11,8 @@
 		<meta charset="utf-8">
 		<link href="css/global.css" rel="stylesheet" type="text/css"/>
 		<link href="css/index.css" rel="stylesheet" type="text/css"/>
-		<script src="javascript/jquery.js"></script>
-		<script src="javascript/javascript-index.js"></script>
+		<script src="script/jquery.js"></script>
+		<script src="script/app.js"></script>
 	</head>
 	<body>
 		<div class="container">
@@ -41,7 +41,7 @@
 						<span>Votre nom d'utilisateur : <input type="text" name="username" max="30"></span>
 						<span>Mot de passe : <input type="password" name="password" max="20"></span>
 						<input type="submit" name="send" class="submit" value="Connexion">
-						<p><a href="javascript:hideLogin()">Inscription</a></p>
+						<p><a href="javascript:app.general.hideLogin()">Inscription</a></p>
 						<div class="clear"></div>
 					</form>
 				</div>
@@ -61,7 +61,7 @@
 						<span>Code postal : <input type="text" name="potalCode" max="6"></span>
 						<span>Téléphone : <input type="text" name="telephone" max="10"></span>
 						<input type="submit" name="send" class="submit" value="S'inscrire">
-						<p><a href="javascript:hideRegister()">Retour à connexion</a></p>
+						<p><a href="javascript:app.general.hideRegister()">Retour à connexion</a></p>
 						<div class="clear"></div>
 					</form>
 				</div>
@@ -69,7 +69,7 @@
 		</div>
 		<script type="text/javascript">
 			$(document).ready(function(){
-				hideRegister();
+				app.general.hideRegister();
 			});
 		</script>
 	</body>

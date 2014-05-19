@@ -1,5 +1,4 @@
 app = (function(){
-
 	function init(){
 
 	}
@@ -9,6 +8,16 @@ app = (function(){
 
 		}
 
+		function hideRegister() {
+			$('#registerPage').hide();
+			$('#connectPage').show();
+		}
+
+		function hideLogin() {
+			$('#registerPage').show();
+			$('#connectPage').hide();
+		}
+
 		function redirect(path){
 			window.location.href =  path;
 		}
@@ -16,6 +25,8 @@ app = (function(){
 		return{
 	    	init:init,
 	    	redirect:redirect,
+	    	hideRegister:hideRegister,
+	    	hideLogin:hideLogin,
     	}
 	})();
 
