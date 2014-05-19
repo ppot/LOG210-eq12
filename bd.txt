@@ -2,8 +2,8 @@
 -- version 4.1.12
 -- http://www.phpmyadmin.net
 --
--- Host: localhost:3306
--- Generation Time: May 16, 2014 at 05:29 PM
+-- Host: localhost:8889
+-- Generation Time: May 19, 2014 at 11:10 PM
 -- Server version: 5.5.34
 -- PHP Version: 5.5.10
 
@@ -17,6 +17,35 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `address`
+--
+
+CREATE TABLE `address` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `adresseble_id` int(11) NOT NULL,
+  `adresseble_type` varchar(12) NOT NULL,
+  `no_maison` varchar(10) NOT NULL,
+  `street` varchar(50) NOT NULL,
+  `city` varchar(50) NOT NULL,
+  `phone` varchar(10) NOT NULL,
+  `postalcode` varchar(6) NOT NULL,
+  `main` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+
+--
+-- Dumping data for table `address`
+--
+
+INSERT INTO `address` (`id`, `adresseble_id`, `adresseble_type`, `no_maison`, `street`, `city`, `phone`, `postalcode`, `main`) VALUES
+(1, 1, 'client', '639', 'ave.Victoria', 'Saint-Lambert', '5145151525', 'J4P2J7', 1),
+(3, 36, 'client', '2444', ' Rue Notre-Dame Ouest', 'Montreal', '5145151525', 'H3J1N5', 1),
+(7, 40, 'client', '2444', 'Rue Notre-Dame Ouest', 'Montreal', '5145151525', 'H3J1N5', 1),
+(8, 41, 'client', '639', 'ave.Victoria', 'Saint-Lambert', '5145151525', 'J4P2J7', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -24,11 +53,21 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(30) NOT NULL,
   `password` varchar(20) NOT NULL,
-  `firstname` varchar(15) NOT NULL,
-  `lastname` varchar(15) NOT NULL,
+  `firstname` varchar(30) NOT NULL,
+  `lastname` varchar(30) NOT NULL,
   `type` varchar(15) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=42 ;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `password`, `firstname`, `lastname`, `type`) VALUES
+(1, 'TooT', 'bacon', 'Philippe', 'Potvin', 'client'),
+(36, 'bob1', 'bacon', 'Philippe', 'Potvin', 'client'),
+(40, 'bob2', 'bacon', 'Philippe', 'Potvin', 'client'),
+(41, 'bob3', 'bacon', 'Philippe', 'Potvin', 'client');
 
 -- --------------------------------------------------------
 
@@ -42,6 +81,14 @@ CREATE TABLE `usersInfos` (
   `mail` varchar(100) NOT NULL,
   `birthdate` date NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-	
-		
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+
+--
+-- Dumping data for table `usersInfos`
+--
+
+INSERT INTO `usersInfos` (`id`, `users_id`, `mail`, `birthdate`) VALUES
+(1, 1, 'ph.potvin@gmail.com', '1992-09-22'),
+(5, 36, 'ph.potvin@gmail.com', '1992-09-22'),
+(9, 40, 'ph.potvin@gmail.com', '1992-09-22'),
+(10, 41, 'ph.potvin@gmail.com', '1992-09-22');
