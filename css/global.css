@@ -9,9 +9,11 @@ html {
 }
 
 .container {
-	background-color:white;
-	height:800px;
 	margin:0 auto;
 	width:960px;
+}
+
+.clear {
+	clear:both;
 }
 
