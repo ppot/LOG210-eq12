@@ -12,6 +12,7 @@
 	</head>
 	<body>
 		<div class="container">
+			<a href="profile.php">Profile Page</a>
 			<div class="authentificationSpace">
 				<div id="connectPage">
 					<h4>Connexion</h4>
