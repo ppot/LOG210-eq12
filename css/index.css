@@ -1,0 +1,64 @@
+* {
+	margin:0;
+	padding:0;
+}
+
+.container {
+	margin:50px auto;
+	width:400px;
+}
+
+.authentificationSpace {
+	background-color:white;
+	border:1px solid black;
+	box-shadow: 10px 10px 5px #888;
+	padding:10px;
+}
+
+.authentificationSpace > div > h4 {
+	font-size:20px;
+	text-align:center;
+}
+
+.authentificationSpace > div > p {
+	font-size:12px;
+	margin:10px 0 20px 0;
+	text-align:center;
+}
+
+.registerForm > span {
+	display:block;
+	margin:5px 0;
+}
+
+.registerForm > span > input {
+	float:right;
+}
+
+.registerForm > p {
+	color:blue;
+	cursor:pointer;
+	margin:20px 0 0 0;
+	text-decoration:underline;
+}
+
+.loginForm > span {
+	display:block;
+	margin:5px 0;
+}
+
+.loginForm > span > input {
+	float:right;
+}
+
+.loginForm > p {
+	color:blue;
+	cursor:pointer;
+	margin:20px 0 0 0;
+	text-decoration:underline;
+}
+
+.submit {
+	float:right;
+	margin:10px 0 0 0;
+}

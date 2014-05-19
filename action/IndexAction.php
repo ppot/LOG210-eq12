@@ -10,4 +10,11 @@
         protected function executeAction(){
            
         }
+		
+		protected function getData() {
+			if(isset($_POST['username'])) {
+				
+			}
+		}
+		
     }

@@ -2,7 +2,7 @@
     session_start();
 	abstract class CommonAction {
 		
-		public function __construct($pageVisibility){
+		public function __construct(){
 			
 		}
 		

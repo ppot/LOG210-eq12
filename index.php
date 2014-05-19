@@ -1,26 +1,55 @@
+<!DOCTYPE html>
 <?php
 	require_once('action/IndexAction.php');
-	require_once('partial/header.php');
 ?>
-<div class="createAccount">
-	<form method="POST" action="">
-		Votre nom d'utilisateur : <input type="text" name="username"><br>
-		Mot de passe : <input type="password" name="password"><br>
-		Votre prénom : <input type="text" name="firstname"><br>
-		Votre nom : <input type="text" name="lastname"><br>
-		Votre courriel : <input type="email" name="email"><br>
-		Date de naissance <br>
-		Jour : <input type="number" value="1" min="1" max="31" name="birthday_day">
-		Month : <input type="number" value="1" min="1" max="12" name="birthday_month">
-		Année : <input type="number" value="2014" min="1900" max="2014" name="birthday_year"><br>
-		Numéro de maison : <input type="text" name="username"><br>
-		Téléphone : <input type="" name="username"><br>
-		<input type="submit" name="send">
-	</form>
-</div>
-
-
-
-
-<?php
-	require_once('partial/footer.php');
+<html lang="fr">
+    <head>
+		<meta charset="utf-8">
+		<link href="css/global.css" rel="stylesheet" type="text/css"/>
+		<link href="css/index.css" rel="stylesheet" type="text/css"/>
+		<script src="javascript/jquery.js"></script>
+		<script src="javascript/javascript-index.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="authentificationSpace">
+				<div id="connectPage">
+					<h4>Connexion</h4>
+					<p>Afin de vous connecter, veuillez remplir les champs ci-dessous.</p>
+					<form method="POST" action="" class="loginForm">
+						<span>Votre nom d'utilisateur : <input type="text" name="username" max="30"></span>
+						<span>Mot de passe : <input type="password" name="password" max="20"></span>
+						<input type="submit" name="send" class="submit" value="Connexion">
+						<p><a href="javascript:hideLogin()">Inscription</a></p>
+						<div class="clear"></div>
+					</form>
+				</div>
+				
+				<div id="registerPage">
+					<h4>Inscription</h4>
+					<p>Afin de vous inscrire, veuillez remplir les champs ci-dessous.</p>
+					<form method="POST" action="" class="registerForm">
+						<span>Votre nom d'utilisateur : <input type="text" name="username" max="30"></span>
+						<span>Mot de passe : <input type="password" name="password" max="20"></span>
+						<span>Votre prénom : <input type="text" name="firstname" max="30"></span>
+						<span>Votre nom : <input type="text" name="lastname" max="30"></span>
+						<span>Votre courriel : <input type="email" name="email"></span>
+						<span>Date de naissance : <input type="text" name="birthday"></span>
+						<span>Adresse : <input type="text" name="address" max="50"></span>
+						<span>Ville : <input type="text" name="town" max="50"></span>
+						<span>Code postal : <input type="text" name="potalCode" max="6"></span>
+						<span>Téléphone : <input type="text" name="telephone" max="10"></span>
+						<input type="submit" name="send" class="submit" value="S'inscrire">
+						<p><a href="javascript:hideRegister()">Retour à connexion</a></p>
+						<div class="clear"></div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				hideRegister();
+			});
+		</script>
+	</body>
+</html>
