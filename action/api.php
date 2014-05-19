@@ -17,6 +17,9 @@
 				register();
 				break;
 
+			case 'user_infos':
+				user_infos();
+				break;
 			case 'updateUser':
 				updateUser();
 				break;
@@ -103,6 +106,17 @@
 		$mysqli->close();
 	}
 
+
+	function user_infos(){
+		$mysqli = new mysqli("localhost", "root", "root", "LOG210");
+		$id = $_SESSION['id'];
+
+		$sql_address = "SELECT * FROM address as a INNER JOIN users as u ON a.adresseble_id=u.id WHERE adresseble_id = $id AND adresseble_type = 'client' AND main='1'";
+		$result = $mysqli->query($sql_address);
+		$row = $result->fetch_assoc();
+		echo json_encode($row);
+		$mysqli->close();
+	}
 
 
 	function updateUser(){

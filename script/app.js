@@ -41,8 +41,8 @@ app = (function(){
 			    url: "/LOG210-eq12/action/api.php",
 			    data:{
 			    	action: 'oauth',
-			    	username : 'Test',
-			    	password : 'bacon1234',
+			    	username : $('#username').val(),
+			    	password : $('#password').val(),
 				},
 			    dataType: "html",
 			    success: function(result){
@@ -67,7 +67,7 @@ app = (function(){
 			    dataType: "html",
 			    success: function(result){
 			    	console.log(result);
-			    	general.redirect("/LOG210-eq12/out.php");
+			    	general.redirect("/LOG210-eq12/index.php");
 			    }        
 			});
 		}
@@ -78,22 +78,45 @@ app = (function(){
 			    url: "/LOG210-eq12/action/api.php",
 			    data:{
 			    	action: 'register',
-			    	firstname: 'Philippe',
-			    	lastname:  'Potvin',
-			    	username: 'Test',
-			    	password: 'bacon',
-			    	mail: 'ph.potvin@gmail.com',
-			    	birthdate: '1992-09-22',
-			    	no_maison: '639',
-			    	street: 'ave.Victoria',
-			    	city: 'Saint-Lambert',
-			    	phone: '5145151525',
-			    	postalcode: 'J4P2J7',
+			    	firstname: $('#firstname').val(),
+			    	lastname:  $('#lastname').val(),
+			    	username: $('#rUsername').val(),
+			    	password: $('#rPassword').val(),
+			    	mail: $('#mail').val(),
+			    	birthdate: $('#birthdate').val(),
+			    	no_maison: $('#no_maison').val(),
+			    	street: $('#street').val(),
+			    	city: $('#city').val(),
+			    	phone: $('#phone').val(),
+			    	postalcode: $('#postalcode').val(),
 
 				},
 			    dataType: "html",
 			    success: function(result){
 			    	console.log(result);
+			    }        
+			});	
+		}
+
+		function user_infos(){
+			$.ajax({
+			    type: "GET",
+			    url: "/LOG210-eq12/action/api.php",
+			    data:{
+			    	action: 'user_infos',
+				},
+			    dataType: "html",
+			    success: function(result){
+			    	console.log(result);
+			    	response = $.parseJSON(result);
+			    	if(response!=null){
+			    		$('#password').val(response.password);
+				    	$('#no_maison').val(response.no_maison);
+						$('#street').val(response.street);
+						$('#city').val(response.city);
+						$('#phone').val(response.phone);
+						$('#postalcode').val(response.postalcode);
+					}
 			    }        
 			});	
 		}
@@ -104,12 +127,12 @@ app = (function(){
 			    url: "/LOG210-eq12/action/api.php",
 			    data:{
 			    	action: 'updateUser',
-			    	password: 'bacon1234',
-			    	no_maison: '2444',
-			    	street: ' Rue Notre-Dame Ouest',
-			    	city: 'Montreal',
-			    	phone: '5145151525',
-			    	postalcode: 'H3J1N5',
+			    	password: $('#password').val(),
+			    	no_maison: $('#no_maison').val(),
+			    	street: $('#street').val(),
+			    	city: $('#city').val(),
+			    	phone: $('#phone').val(),
+			    	postalcode: $('#postalcode').val(),
 				},
 			    dataType: "html",
 			    success: function(result){
@@ -124,6 +147,7 @@ app = (function(){
 			oOut:oOut,
 			register:register,
 			user_update:user_update,
+			user_infos:user_infos,
 	    }
 	})();
 
