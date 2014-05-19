@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <?php
+
+	//debug usage
+	error_reporting(E_ALL);
+	ini_set('display_errors', True);
+	//==============================
 	require_once('action/IndexAction.php');
 ?>
 <html lang="fr">
@@ -12,8 +17,22 @@
 	</head>
 	<body>
 		<div class="container">
-			<a href="profile.php">Profile Page</a>
-			<div class="authentificationSpace">
+		<a href="profile.php">Profile Page</a>
+		<?php
+			if(isset($_SESSION['username']) && !empty($_SESSION['username']))
+			{
+				$user =  $_SESSION['username'];
+				echo "logged in as $user";
+				echo "<a href='javascript:authOut()'>logout</a>";
+				echo "<br/>";
+				echo "<a href='javascript:update()'>update address</a>";
+			}
+			if(!isset($_SESSION['username']))
+			{
+				echo "<a href='javascript:auth()'>login</a>";
+			}
+		?>
+		<div class="authentificationSpace">
 				<div id="connectPage">
 					<h4>Connexion</h4>
 					<p>Afin de vous connecter, veuillez remplir les champs ci-dessous.</p>
