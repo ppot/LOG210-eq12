@@ -29,6 +29,22 @@
 </div>
 
 <script type="text/javascript">
+	
+			$.ajax({
+			    type: "GET",
+			    url: "/LOG210-eq12/action/api.php",
+			    data:{
+			    	action: 'current',
+				},
+			    dataType: "html",
+			    success: function(result){
+			    	console.log(result);
+			    	// response = $.parseJSON(result);
+			    }        
+			});	
+
+
+
 			$(document).ready(function(){
 				app.user.user_infos();
 			});

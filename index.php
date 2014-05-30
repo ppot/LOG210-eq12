@@ -1,12 +1,7 @@
+<?php 
+session_start();
+ ?>
 <!DOCTYPE html>
-<?php
-	session_start();
-	//debug usage
-	error_reporting(E_ALL);
-	ini_set('display_errors', True);
-	//==============================
-	// require_once('action/IndexAction.php');
-?>
 <html lang="fr">
     <head>
 		<meta charset="utf-8">
@@ -26,11 +21,11 @@
 				echo "<br/>";
 				echo "<a href='profile.php'>Profile Page</a>";
 			}
-			
+
 			if(!isset($_SESSION['username']))
 			{
 
-				?>
+		?>
 
 				<div class="authentificationSpace">
 					<div id="connectPage">
@@ -66,7 +61,7 @@
 						</form>
 					</div>
 				</div>
-		<script type="text/javascript">
+		<script>
 			$(document).ready(function(){
 				app.general.hideRegister();
 				fillValue();
@@ -84,7 +79,7 @@
 				$('#city').val('Saint-Lambert');
 				$('#phone').val('5145151525');
 				$('#postalcode').val('J4P2J7');
-			}
+			}	
 		</script>
 
 		<?php

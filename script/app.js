@@ -107,7 +107,6 @@ app = (function(){
 				},
 			    dataType: "html",
 			    success: function(result){
-			    	console.log(result);
 			    	response = $.parseJSON(result);
 			    	if(response!=null){
 			    		$('#password').val(response.password);
