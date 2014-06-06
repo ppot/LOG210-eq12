@@ -16,30 +16,30 @@
 
 		public function __construct() {}
 
-		// get methods
-		public function getId() {
-        	return $this->id;
-	    }
+		// // get methods
+		// public function getId() {
+  //       	return $this->id;
+	 //    }
 
-	    public function getFirstname() {
-	        return $this->firstname;
-	    }
+	 //    public function getFirstname() {
+	 //        return $this->firstname;
+	 //    }
 
-	    public function getLastname() {
-	        return $this->lastname;
-	    }
+	 //    public function getLastname() {
+	 //        return $this->lastname;
+	 //    }
 
-	    public function getType() {
-	        return $this->type;
-	    }
+	 //    public function getType() {
+	 //        return $this->type;
+	 //    }
 
-		public function getMail() {
-	    	return $this->mail;
-	    }
+		// public function getMail() {
+	 //    	return $this->mail;
+	 //    }
 
-		public function getBirthdate() {
-	    	return $this->birthdate;
-	    }	 
+		// public function getBirthdate() {
+	 //    	return $this->birthdate;
+	 //    }	 
 	       
 	    //set methods
 	    public function setId($id) {
@@ -70,17 +70,6 @@
 	    	return $this->birthdate = $birthdate;
 	    }
 
-		// public function __construct($id, $password, $firstname, $lastname, $type, $mail, $birthdate)
-		// {
-		// 	$this->setId($id); 
-		// 	$this->setPassword($password);
-		// 	$this->setFirstname($firstname);
-		// 	$this->setLastname($lastname);
-		// 	$this->setType($type); 
-		// 	$this->setMail($mail);
-		// 	$this->setBirthdate($birthdate); 
-		// }
-
 		public static function userExist($mail) {
 			$mysqli = Connection::getConnection();
 		 	$query = "SELECT * FROM users WHERE mail = '$mail'";
@@ -92,6 +81,27 @@
 
 		public function changePassword($value) {
 			$this->setPassword($value);
+		}
+
+		public static function getUser($mail, $password)
+		{
+			$mysqli = Connection::getConnection();
+
+			$sql_query = "SELECT * FROM Users WHERE mail='$mail' AND password='$password'";
+			$result = $mysqli->query($sql_query);
+			$row = $result->fetch_array(MYSQLI_ASSOC);
+			if(!empty($mail) && !empty($password))
+			{
+				$_SESSION['user'] = $row['mail'];
+				$_SESSION['id'] = $row['id'];
+				return 1;
+			}
+			else
+			{
+				return 0;
+			}
+
+			Connection::disconnect();
 		}
 
 		public static function getCurrentUser() {

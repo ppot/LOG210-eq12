@@ -1,6 +1,5 @@
 <?php
-	require_once('action/db/Connection.php');
-	require_once('../controllers/Users.php');
+	require_once('../controllers/UserIndexController.php');
 
 	if(isset($_GET['action'])) {
 		$action = $_GET['action'];

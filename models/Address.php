@@ -81,23 +81,12 @@
 	    	return $this->main = $main;
 	    } 
 
-		// function __construct($id, $addresseble_id, $type, $address, $city, $phone, $postalcode, $main)
-		// {
-		// 	$this->setId($id); 
-		// 	$this->setAddressebleId($addresseble_id);
-		// 	$this->setType($type);
-		// 	$this->setNoMaison($address);
-		// 	$this->setCity($city); 
-		// 	$this->setPhone($phone);
-		// 	$this->setPostalcode($postalcode); 
-		// 	$this->setMain($main);
-		// }
 
-		public static function newAddress($addresseble_id, $addressebleType, $address, $city, $phone, $postalcode, $main) {
+		public static function newAddress($addresseble_id, $addressebleType, $addr, $city, $phone, $postalcode, $main) {
 			$address = new Address();
 			$address->setAddressebleId($addresseble_id);
 			$address->setType($addressebleType);
-			$address->setAddress($address);
+			$address->setAddress($addr);
 			$address->setCity($city); 
 			$address->setPhone($phone);
 			$address->setPostalcode($postalcode); 
@@ -109,7 +98,7 @@
 		{
 			$mysqli = Connection::getConnection();
 			if(empty($this->id)) {
-				$query = "INSERT INTO address (adresseble_id,adresseble_type,no_maison,street,city,phone,postalcode,main) VALUES ('$this->addressebleId','$this->addressebleType','$this->no_maison','$this->street','$this->city','$this->phone','$this->postalcode','$this->main')";
+				$query = "INSERT INTO address (adresseble_id,adresseble_type,address,city,phone,postalcode,main) VALUES ('$this->addressebleId','$this->addressebleType','$this->address','$this->city','$this->phone','$this->postalcode','$this->main')";
 				$result = $mysqli->query($query);
 				return $result;
 			}

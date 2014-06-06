@@ -56,9 +56,22 @@
 				</div>
 			</div>
 		<script>
+		fillValue();
 			$(document).ready(function(){
 				app.general.hideRegister();
 			});
+			function fillValue(){
+				$('#firstname').val('Philippe');
+				$('#lastname').val('Potvin');
+				$('#rUsername').val('Test');
+				$('#rPassword').val('bacon');
+				$('#rMail').val('ph.potvin@gmail.com');
+				$('#birthdate').val('1992-09-22');
+				$('#address').val('639 ave.Victoria');
+				$('#city').val('Saint-Lambert');
+				$('#phone').val('5145151525');
+				$('#postalcode').val('J4P2J7');
+			}	
 		</script>
 
 		<?php
