@@ -3,6 +3,7 @@
 	require_once('../controller/Entrepreneur.php');
 	require_once('../controller/Restaurateur.php');
 	require_once('../controller/Orders.php');	
+	require_once('../controllers/UserIndexController.php');
 
 	if(isset($_GET['action'])) {
 		$action = $_GET['action'];

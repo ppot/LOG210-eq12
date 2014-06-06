@@ -126,7 +126,8 @@
     				<ul class="menus" id="address-list">
     				</ul>
     			</div>
-
+				</div>
+			</div>
 	    	</span>
 	  </div>
 	</div>
