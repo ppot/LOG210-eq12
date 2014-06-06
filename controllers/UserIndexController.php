@@ -1,6 +1,7 @@
 <?php
 	require_once('../action/db/Connection.php');
 	require_once('../models/User.php');
+	session_start();
 	class Users {
 		public function __construct() {}
 
@@ -11,7 +12,7 @@
         
        	public static function oauth()
        	 {
-       	 	$result = User::getUser($_GET['lMail'],$_GET['password']);
+       	 	$result = User::getUser($_GET['mail'],$_GET['password']);
        	 	echo json_encode($result);
 		}
 
@@ -26,17 +27,6 @@
 
 		public static function register()
 		{
-			// $password = $mysqli->real_escape_string($_GET['password']);
-			// $firstname = $mysqli->real_escape_string($_GET['firstname']);
-			// $lastname = $mysqli->real_escape_string($_GET['lastname']);
-
-			// $mail = $mysqli->real_escape_string($_GET['mail']);
-			// $birthdate = $mysqli->real_escape_string($_GET['birthdate']);
-
-			// $address = $mysqli->real_escape_string($_GET['address']);
-			// $city = $mysqli->real_escape_string($_GET['city']);
-			// $phone =  $mysqli->real_escape_string($_GET['phone']);
-			// $postalcode = $mysqli->real_escape_string($_GET['postalcode']);	
 			$password = $_GET['password'];
 			$firstname = $_GET['firstname'];
 			$lastname = $_GET['lastname'];

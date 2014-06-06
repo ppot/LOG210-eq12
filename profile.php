@@ -1,5 +1,4 @@
 <?php
-	require_once('action/IndexAction.php');
 	require_once('partial/header.php');
 ?>
 <div>
@@ -19,8 +18,7 @@
 		<div class="registerForm">
 	  	<span>Modifications d'informations personnelles: <a href="javascript:fillValue()">remplir autrement</a></span>
 		<span>Mot de passe : <input id="password" type="password" name="password" max="20"></span>
-		<span>Adresse : <input type="text" id="no_maison" name="no_maison" max="50"></span>
-		<span>rue : <input id="street" type="text"  name="street" max="50"></span>
+		<span>Adresse : <input type="text" id="address" name="address" max="50"></span>
 		<span>Ville : <input id="city" type="text" name="city" max="50"></span>
 		<span>Code postal : <input id="postalcode" type="text" name="potalCode" max="6"></span>
 		<span>Téléphone : <input id="phone" type="text" name="telephone" max="10"></span>

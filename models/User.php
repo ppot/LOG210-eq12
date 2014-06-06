@@ -146,9 +146,9 @@
 			}
 		}
 
-		public function updateAddress($address, $city, $phone, $postalcode) {
+		public function updateAddress($addr, $city, $phone, $postalcode) {
 			$address = $this->getMainAddress();
-			$address->setAddress($address);
+			$address->setAddress($addr);
 			$address->setCity($city); 
 			$address->setPhone($phone);
 			$address->setPostalcode($postalcode);
