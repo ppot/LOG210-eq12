@@ -59,6 +59,10 @@
 }
 
 .submit {
+	background-color:rgb(240,240,240);
+	border:1px solid black;
 	float:right;
 	margin:10px 0 0 0;
+	padding:3px;
+	text-decoration: none;
 }

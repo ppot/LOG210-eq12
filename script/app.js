@@ -41,7 +41,7 @@ app = (function(){
 			    url: "/LOG210-eq12/action/api.php",
 			    data:{
 			    	action: 'oauth',
-			    	username : $('#username').val(),
+			    	mail : $('#lMail').val(),
 			    	password : $('#password').val(),
 				},
 			    dataType: "html",
@@ -80,12 +80,10 @@ app = (function(){
 			    	action: 'register',
 			    	firstname: $('#firstname').val(),
 			    	lastname:  $('#lastname').val(),
-			    	username: $('#rUsername').val(),
 			    	password: $('#rPassword').val(),
-			    	mail: $('#mail').val(),
+			    	mail: $('#rMail').val(),
 			    	birthdate: $('#birthdate').val(),
-			    	no_maison: $('#no_maison').val(),
-			    	street: $('#street').val(),
+			    	address: $('#address').val(),
 			    	city: $('#city').val(),
 			    	phone: $('#phone').val(),
 			    	postalcode: $('#postalcode').val(),
@@ -110,8 +108,7 @@ app = (function(){
 			    	response = $.parseJSON(result);
 			    	if(response!=null){
 			    		$('#password').val(response.password);
-				    	$('#no_maison').val(response.no_maison);
-						$('#street').val(response.street);
+				    	$('#address').val(response.address);
 						$('#city').val(response.city);
 						$('#phone').val(response.phone);
 						$('#postalcode').val(response.postalcode);
@@ -127,8 +124,7 @@ app = (function(){
 			    data:{
 			    	action: 'updateUser',
 			    	password: $('#password').val(),
-			    	no_maison: $('#no_maison').val(),
-			    	street: $('#street').val(),
+			    	address: $('#address').val(),
 			    	city: $('#city').val(),
 			    	phone: $('#phone').val(),
 			    	postalcode: $('#postalcode').val(),
