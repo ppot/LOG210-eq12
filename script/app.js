@@ -229,7 +229,18 @@ app = (function(){
 		var user = new User(); 
 
     	function init(){
+<<<<<<< HEAD
     	}
+=======
+    		$('#auth-error').hide();
+    		$('#register-error').hide();
+			$('#register-success').hide();
+
+    		$('#update-password-error').hide();
+    		$('#update-password-success').hide();
+			$('#update-address-error').hide();
+			$('#update-address-success').hide();
+>>>>>>> ADD bootstrap / restyling
 
     	function register(){
 			user.register(
@@ -334,10 +345,20 @@ app = (function(){
 				},
 			    dataType: "html",
 			    success: function(result){
+<<<<<<< HEAD
 			    	$("#arrayRestaurateurs").html('');
 					$.each($.parseJSON(result), function(idx, obj) {
 			    		$("#arrayRestaurateurs").append('<tr id="restaurateur'+obj.id+'"><td>'+obj.mail+'</td><td>'+obj.firstname+'</td><td>'+obj.lastname+'</td><td> <a href="javascript:app.entrepreneur.getRestaurateur('+obj.id+')" class="a-link">Modifier</a> <a href="javascript:app.entrepreneur.delRestautateur('+obj.id+')" class="a-link">delete</a></td></tr>');
 					});
+=======
+			    	response = $.parseJSON(result);
+			    	if(response === 1){
+			    		general.redirect("/LOG210-eq12/index.php");
+			    	}
+			    	else{
+			    		$('#auth-error').show();
+			    	}
+>>>>>>> ADD bootstrap / restyling
 			    }        
 			});
     	}
@@ -714,6 +735,7 @@ app = (function(){
 				},
 			    dataType: "html",
 			    success: function(result){
+<<<<<<< HEAD
 			     	address = $.parseJSON(result);
 
 			     	command.setAddressId(address.id);
@@ -734,6 +756,23 @@ app = (function(){
 
  	 				$('#orderDate').val(year+'-'+month+'-'+day);	
  	 				$('#orderTime').val(hour+':'+minute+':'+second);	
+=======
+			    	response = $.parseJSON(result);
+
+			    	if(response === 0 ){
+			    		$('#register-error').show();
+			    		$('#register-error-message').text('remplir tout les champs');
+			    	}
+			    	else if(response === 2){
+			    		$('#register-error').show();
+			    		$('#register-error-message').text('le courriel existe deja');
+			    	}
+			    	else if(response === 1){
+			    		$('#register-error').hide();
+			    		$('#register-success').show();
+			    	}
+
+>>>>>>> ADD bootstrap / restyling
 			    }        
 			});   		
 		 $('#cart_total').text(cart.total());
@@ -909,14 +948,20 @@ app = (function(){
 			    }        
 			});				
 		}
+<<<<<<< HEAD
 
     	function setAddress(id){
 			$('#newAddress').hide();
 
+=======
+		
+		function user_update_password(){
+>>>>>>> ADD bootstrap / restyling
 			$.ajax({
 			    type: "GET",
 			    url: app.config.getContext()+"action/api.php",
 			    data:{
+<<<<<<< HEAD
 			    	action: 'changeDeliveryAddress',
 			    	id: id,
 				},
@@ -928,12 +973,57 @@ app = (function(){
  					$('#postalcode').text(res.postalcode);
  					$('#city').text(res.city); 	
  					$('#phone').text(res.phone);
+=======
+			    	action: 'updateUserPassword',
+			    	password: $('#password').val(),
+				},
+			    dataType: "html",
+			    success: function(result){
+			    	response = $.parseJSON(result);
+			    	if(response === 0){
+			    		$('#update-password-error').show();
+			    		$('#update-password-success').hide();
+			    	}
+			    	else if(response === 1){
+			    		$('#update-password-error').hide();
+			    		$('#update-password-success').show();
+			    	}
+			    	console.log(result);
+			    }        
+			});	
+		}
+
+		function user_update_address(){
+			$.ajax({
+			    type: "GET",
+			    url: "/LOG210-eq12/action/api.php",
+			    data:{
+			    	action: 'updateUserAddress',
+			    	address: $('#address').val(),
+			    	city: $('#city').val(),
+			    	phone: $('#phone').val(),
+			    	postalcode: $('#postalcode').val(),
+				},
+			    dataType: "html",
+			    success: function(result){
+			    	response = $.parseJSON(result);
+			    	if(response === 0){
+			    		$('#update-address-error').show();
+			    		$('#update-address-success').hide();
+			    	}
+			    	if(response === 1){
+			    		$('#update-address-error').hide();
+			    		$('#update-address-success').show();
+			    	}
+			    	console.log(result);
+>>>>>>> ADD bootstrap / restyling
 			    }        
 			});	
     	}
 
 		return {
 			init:init,
+<<<<<<< HEAD
 			getRestaurants:getRestaurants,
 			getMenus:getMenus,
 			setViewType:setViewType,
@@ -949,15 +1039,39 @@ app = (function(){
 			process:process,
 		}
 
+=======
+			oauth:oauth,
+			oOut:oOut,
+			register:register,
+			user_update_password:user_update_password,
+			user_update_address:user_update_address,
+			user_infos:user_infos,
+	    }
+>>>>>>> ADD bootstrap / restyling
 	})();
+
+	var entrepreneur = (function(){ 
+    	function init(){
+
+    	}
+    	return{
+			init:init,
+	    }
+	})();
+
 
 	return{
 		init:init,
 		config:config,
 		general:general,
+<<<<<<< HEAD
 		users:users,
 		entrepreneur:entrepreneur,
 		restaurateur:restaurateur,
 		order:order,
+=======
+		user:user,
+		entrepreneur:entrepreneur,
+>>>>>>> ADD bootstrap / restyling
 	}
 })();

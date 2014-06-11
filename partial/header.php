@@ -15,6 +15,7 @@
 
     <!-- Custom styles for this template -->
     <link href="../css/sticky-footer-navbar.css" rel="stylesheet">
+<<<<<<< HEAD
     <script src="../script/jquery.js"></script>
     <script src="../script/plat.js"></script>
     <script src="../script/cartItem.js"></script>
@@ -22,6 +23,8 @@
     <script src="../script/order.js"></script>
     <script src="../script/app.js"></script>
 	
+=======
+>>>>>>> ADD bootstrap / restyling
   </head>
 
   <body>

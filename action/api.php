@@ -31,6 +31,13 @@
 				Users::updateAddress();
 				break;
 
+<<<<<<< HEAD
+=======
+			case 'updateUserAddress':
+				Users::updateAddress();
+				break;
+
+>>>>>>> ADD bootstrap / restyling
 			case 'updateUserPassword':
 				Users::updatePassword();
 				break;

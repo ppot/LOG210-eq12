@@ -11,6 +11,11 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
+<<<<<<< HEAD
+=======
+    <script src="../script/jquery.js"></script>
+	<script src="../script/app.js"></script>
+>>>>>>> ADD bootstrap / restyling
     <script src="../bootstrap/js/bootstrap.min.js"></script>
   </body>
 </html>

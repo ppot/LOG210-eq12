@@ -23,7 +23,10 @@
 			if($_SESSION['user'] != "" && $_SESSION['id'] != "")
 			{
 				unset($_SESSION['user']);
+<<<<<<< HEAD
 				unset($_SESSION['type']);
+=======
+>>>>>>> ADD bootstrap / restyling
 				unset($_SESSION['id']);
 			}
 		}
@@ -89,6 +92,7 @@
 			$id = $_SESSION['id'];
 	
 			$password = $_GET['password'];
+<<<<<<< HEAD
 
 			$update = (empty($password));
 			if($update) 
@@ -104,6 +108,21 @@
 			}
 		}
 
+=======
+
+			$update = (empty($password));
+			if($update) {
+				echo json_encode(0);
+			}
+			else {
+				$user=User::getCurrentUser();
+				$user->changePassword($password);
+				$userResult=$user->save();
+				echo json_encode(1);
+			}
+		}
+
+>>>>>>> ADD bootstrap / restyling
 		public static function updateAddress()
 		{
 			$id = $_SESSION['id'];
@@ -114,8 +133,12 @@
 			$postalcode =$_GET['postalcode'];	
 
 			$update = (empty($address) || empty($city) || empty($phone) || empty($postalcode));
+<<<<<<< HEAD
 			if($update) 
 			{
+=======
+			if($update) {
+>>>>>>> ADD bootstrap / restyling
 				echo json_encode(0);
 			}
 			else 
