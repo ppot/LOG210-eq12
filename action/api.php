@@ -20,8 +20,12 @@
 				Users::userInfos();
 				break;
 
-			case 'updateUser':
-				Users::update();
+			case 'updateUserAddress':
+				Users::updateAddress();
+				break;
+
+			case 'updateUserPassword':
+				Users::updatePassword();
 				break;
 				
 			case 'users':

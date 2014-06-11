@@ -32,6 +32,14 @@ app = (function(){
 
 	var user = (function(){ 
     	function init(){
+    		$('#auth-error').hide();
+    		$('#register-error').hide();
+			$('#register-success').hide();
+
+    		$('#update-password-error').hide();
+    		$('#update-password-success').hide();
+			$('#update-address-error').hide();
+			$('#update-address-success').hide();
 
     	}
 
@@ -51,7 +59,7 @@ app = (function(){
 			    		general.redirect("/LOG210-eq12/index.php");
 			    	}
 			    	else{
-			    		console.log("worng username or password");
+			    		$('#auth-error').show();
 			    	}
 			    }        
 			});
@@ -91,7 +99,21 @@ app = (function(){
 				},
 			    dataType: "html",
 			    success: function(result){
-			    	console.log(result);
+			    	response = $.parseJSON(result);
+
+			    	if(response === 0 ){
+			    		$('#register-error').show();
+			    		$('#register-error-message').text('remplir tout les champs');
+			    	}
+			    	else if(response === 2){
+			    		$('#register-error').show();
+			    		$('#register-error-message').text('le courriel existe deja');
+			    	}
+			    	else if(response === 1){
+			    		$('#register-error').hide();
+			    		$('#register-success').show();
+			    	}
+
 			    }        
 			});	
 		}
@@ -117,13 +139,36 @@ app = (function(){
 			});	
 		}
 		
-		function user_update(){
+		function user_update_password(){
 			$.ajax({
 			    type: "GET",
 			    url: "/LOG210-eq12/action/api.php",
 			    data:{
-			    	action: 'updateUser',
+			    	action: 'updateUserPassword',
 			    	password: $('#password').val(),
+				},
+			    dataType: "html",
+			    success: function(result){
+			    	response = $.parseJSON(result);
+			    	if(response === 0){
+			    		$('#update-password-error').show();
+			    		$('#update-password-success').hide();
+			    	}
+			    	else if(response === 1){
+			    		$('#update-password-error').hide();
+			    		$('#update-password-success').show();
+			    	}
+			    	console.log(result);
+			    }        
+			});	
+		}
+
+		function user_update_address(){
+			$.ajax({
+			    type: "GET",
+			    url: "/LOG210-eq12/action/api.php",
+			    data:{
+			    	action: 'updateUserAddress',
 			    	address: $('#address').val(),
 			    	city: $('#city').val(),
 			    	phone: $('#phone').val(),
@@ -131,6 +176,15 @@ app = (function(){
 				},
 			    dataType: "html",
 			    success: function(result){
+			    	response = $.parseJSON(result);
+			    	if(response === 0){
+			    		$('#update-address-error').show();
+			    		$('#update-address-success').hide();
+			    	}
+			    	if(response === 1){
+			    		$('#update-address-error').hide();
+			    		$('#update-address-success').show();
+			    	}
 			    	console.log(result);
 			    }        
 			});	
@@ -141,14 +195,26 @@ app = (function(){
 			oauth:oauth,
 			oOut:oOut,
 			register:register,
-			user_update:user_update,
+			user_update_password:user_update_password,
+			user_update_address:user_update_address,
 			user_infos:user_infos,
 	    }
 	})();
+
+	var entrepreneur = (function(){ 
+    	function init(){
+
+    	}
+    	return{
+			init:init,
+	    }
+	})();
+
 
 	return{
 		init:init,
 		general:general,
 		user:user,
+		entrepreneur:entrepreneur,
 	}
 })();

@@ -20,7 +20,7 @@
 		{
 			if($_SESSION['user'] != "" && $_SESSION['id'] != "")
 			{
-				unset($_SESSION['username']);
+				unset($_SESSION['user']);
 				unset($_SESSION['id']);
 			}
 		}
@@ -48,19 +48,29 @@
 				echo json_encode(0);
 			}
 			else {
-				$date =  date('Y-m-d', strtotime($birthdate));
-				$user = new User();
-				$user->setPassword($password);
-				$user->setFirstname($firstname);
-				$user->setLastname($lastname);
-				$user->setType('client'); 
-				$user->setMail($mail);
-				$user->setBirthdate($date);
-				$user->save();
 
-				$user->newAddress($addresse, $city, $phone, $postalcode);
+				$user = User::userExist($mail);
+				if($user != null)
+				{
+					echo json_encode(2);
+				}
+				else
+				{
+					$date =  date('Y-m-d', strtotime($birthdate));
+					$user = new User();
+					$user->setPassword($password);
+					$user->setFirstname($firstname);
+					$user->setLastname($lastname);
+					$user->setType('client'); 
+					$user->setMail($mail);
+					$user->setBirthdate($date);
+					$user->save();
 
-				echo json_encode(1);
+					$user->newAddress($addresse, $city, $phone, $postalcode);
+
+					echo json_encode(1);
+				}
+
 			}
 		}
 
@@ -70,18 +80,13 @@
 			echo json_encode($address);
 		}
 
-
-		public static function update()
+		public static function updatePassword()
 		{
 			$id = $_SESSION['id'];
-
-			$address = $_GET['address'];
-			$city = $_GET['city'];
-			$phone =  $_GET['phone'];
-			$postalcode =$_GET['postalcode'];	
+	
 			$password = $_GET['password'];
 
-			$update = (empty($password) || empty($address) || empty($city) || empty($phone) || empty($postalcode));
+			$update = (empty($password));
 			if($update) {
 				echo json_encode(0);
 			}
@@ -89,8 +94,28 @@
 				$user=User::getCurrentUser();
 				$user->changePassword($password);
 				$userResult=$user->save();
+				echo json_encode(1);
+			}
+		}
+
+		public static function updateAddress()
+		{
+			$id = $_SESSION['id'];
+
+			$address = $_GET['address'];
+			$city = $_GET['city'];
+			$phone =  $_GET['phone'];
+			$postalcode =$_GET['postalcode'];	
+
+			$update = (empty($address) || empty($city) || empty($phone) || empty($postalcode));
+			if($update) {
+				echo json_encode(0);
+			}
+			else {
+				$user=User::getCurrentUser();
+				$userResult=$user->save();
 				$addressResult = $user->updateAddress($address, $city, $phone, $postalcode);
-				echo json_encode($userResult + $addressResult);
+				echo json_encode(1);
 			}
 		}
 
