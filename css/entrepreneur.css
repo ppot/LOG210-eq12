@@ -1,0 +1,71 @@
+* {
+	margin:0;
+	padding:0;
+}
+
+.container {
+	background-color:white;
+	margin:0 auto;
+	padding:10px;
+	width:880px;
+}
+
+.title-space {
+	border-bottom:1px solid black;
+}
+
+.side-bar {
+	border:1px solid black;
+	float:left;
+	margin:20px 0 0 0;
+	width:200px;
+}
+
+.side-bar > a {
+	color:black;
+	display:block;
+	font-size:20px;
+	margin:10px 0 10px 0;
+	text-align:center;
+	text-decoration: none;
+}
+
+.side-bar > a:hover {
+	text-decoration: underline;
+}
+
+.data {
+	border:1px solid black;
+	float:left;
+	margin:20px 0 0 10px;
+	padding:10px;
+	width:645px;
+}
+
+#createRest > h4, #manageRest > h4 {
+	font-size:22px;
+}
+
+#createRest > p, #manageRest > p {
+	font-style:italic;
+	margin:10px 0 10px 0;
+	text-align:center;
+}
+
+#createRest > span, #manageRest > div > div > span {
+	display:block;
+	font-size:18px;
+	margin:10px 0 10px 0;
+}
+
+#createRest > a, #manageRest > div > div > a{
+	border:1px solid black;
+	color:black;
+	float:right;
+	padding:5px;
+	text-decoration:none;
+}
+
+#createRest > a:hover, #manageRest > a:hover {
+	background-color:yellow;
+}
