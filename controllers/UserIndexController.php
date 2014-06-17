@@ -2,10 +2,12 @@
 	require_once('../action/db/Connection.php');
 	require_once('../models/User.php');
 	session_start();
-	class Users {
+	class Users 
+	{
 		public function __construct() {}
 
-		public static function  getUser(){
+		public static function  getUser()
+		{
 			$user = User::getCurrentUser();
 			 echo json_encode($user->getMainAddress());
 		}
@@ -21,6 +23,7 @@
 			if($_SESSION['user'] != "" && $_SESSION['id'] != "")
 			{
 				unset($_SESSION['user']);
+				unset($_SESSION['type']);
 				unset($_SESSION['id']);
 			}
 		}
@@ -74,7 +77,8 @@
 			}
 		}
 
-		public static function userInfos() {
+		public static function userInfos() 
+		{
 			$user = User::getCurrentUser();
 			$address = $user->getMainAddress();
 			echo json_encode($address);
@@ -87,10 +91,12 @@
 			$password = $_GET['password'];
 
 			$update = (empty($password));
-			if($update) {
+			if($update) 
+			{
 				echo json_encode(0);
 			}
-			else {
+			else 
+			{
 				$user=User::getCurrentUser();
 				$user->changePassword($password);
 				$userResult=$user->save();
@@ -108,10 +114,12 @@
 			$postalcode =$_GET['postalcode'];	
 
 			$update = (empty($address) || empty($city) || empty($phone) || empty($postalcode));
-			if($update) {
+			if($update) 
+			{
 				echo json_encode(0);
 			}
-			else {
+			else 
+			{
 				$user=User::getCurrentUser();
 				$userResult=$user->save();
 				$addressResult = $user->updateAddress($address, $city, $phone, $postalcode);

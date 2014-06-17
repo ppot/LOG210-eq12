@@ -65,9 +65,17 @@ code {
 .authentication-header {
   margin-left: 10px;
 }
+.plat-header {
+  margin-top: 10px;
+}
+.add-plat{
+  position: relative;
+  top:20px;
+}
 
 .user {
-  font-size: 12px;
+  font-size: 13px;
+  color: #999999;
 }
 .user-signout{
   margin-left: 10px;

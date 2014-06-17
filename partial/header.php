@@ -15,6 +15,9 @@
 
     <!-- Custom styles for this template -->
     <link href="../css/sticky-footer-navbar.css" rel="stylesheet">
+    <script src="../script/jquery.js"></script>
+	<script src="../script/app.js"></script>
+	
   </head>
 
   <body>

@@ -1,6 +1,12 @@
 <?php
 	require_once('../partial/header.php');
 ?>
+<script type="text/javascript">
+	$(document).ready(function(){
+		app.user.init();
+		app.user.user_infos();
+	});
+</script>
               <div class="row authentication" id="registerPage">
       <div class="col-md-8 col-md-offset-2">
                <div class="">
@@ -11,15 +17,15 @@
               </div>
           <div class="col-md-6">
             <div class="auth-box">
-              <input id="password" type="password" name="password" max="20" class="col-md-10 auth-input" placeholder="Mot de passe">
+              <input id="password" type="password" name="password" max="20" class="col-md-10 auth-input" placeholder="mot de passe">
             </div>
           </div>
           <div class="col-md-6">
             <div class="auth-box">
-                <input type="text" id="address" name="address" max="50" class="col-md-10 auth-input"  placeholder="Adresse">
-                <input id="city" type="text" name="city" max="50" class="col-md-10 auth-input"  placeholder="Ville">
-                <input id="postalcode" type="text" name="potalCode" max="6" class="col-md-10 auth-input"  placeholder="Code postal">
-                <input id="phone" type="text" name="telephone" max="10" class="col-md-10 auth-input"  placeholder="Téléphone">
+                <input type="text" id="address" name="address" max="50" class="col-md-10 auth-input"  placeholder="adresse">
+                <input id="city" type="text" name="city" max="50" class="col-md-10 auth-input"  placeholder="ville">
+                <input id="postalcode" type="text" name="potalCode" max="6" class="col-md-10 auth-input"  placeholder="code postal">
+                <input id="phone" type="text" name="telephone" max="10" class="col-md-10 auth-input"  placeholder="tséléphone">
             </div>
           </div>
                   <div class="clearfix">
@@ -64,34 +70,3 @@
 	require_once('../partial/footer.php');
 
 ?>
-<script type="text/javascript">
-	
-			$.ajax({
-			    type: "GET",
-			    url: "/LOG210-eq12/action/api.php",
-			    data:{
-			    	action: 'current',
-				},
-			    dataType: "html",
-			    success: function(result){
-			    	console.log(result);
-			    	// response = $.parseJSON(result);
-			    }        
-			});	
-
-
-
-			$(document).ready(function(){
-				app.user.init();
-				app.user.user_infos();
-			});
-
-			function fillValue(){
-				$('#password').val('bacon1234');
-				$('#no_maison').val('2444');
-				$('#street').val('Rue Notre-Dame Ouest');
-				$('#city').val('Montreal');
-				$('#phone').val('5145151525');
-				$('#postalcode').val('H3J1N5');
-			}
-</script>
