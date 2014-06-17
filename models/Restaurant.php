@@ -35,7 +35,11 @@
 
 	  	public function newAddress($address, $city, $phone, $postalcode) 
 	  	{
+<<<<<<< HEAD
 			Address::newAddress($this->id, 'restaurant',$address, $city, $phone, $postalcode, '1','0');
+=======
+			Address::newAddress($this->id, 'restaurant',$address, $city, $phone, $postalcode, '1');
+>>>>>>> ADD CU1/CU8 + CU5 to complete
 		}
 
 		public function changeAddress($address, $city, $phone, $postalcode)
@@ -53,7 +57,11 @@
 
 			$sql_query = "SELECT * FROM restaurants WHERE id='$id'";
 			$result = $mysqli->query($sql_query);
+<<<<<<< HEAD
 			$row = $result->fetch_assoc();
+=======
+			$row = $result->fetch_array(MYSQLI_ASSOC);
+>>>>>>> ADD CU1/CU8 + CU5 to complete
 
 			$restaurant = new Restaurant();
 
@@ -88,6 +96,10 @@
 		public static function getRestaurantRestaurateurId($id)
 		{
 	    	$mysqli = Connection::getConnection();
+<<<<<<< HEAD
+=======
+			$restaurantArray = array();
+>>>>>>> ADD CU1/CU8 + CU5 to complete
 			$query = "SELECT * FROM restaurants WHERE restaurateur_id='$id'";
 			$result = $mysqli->query($query);
 			$row = $result->fetch_assoc();
@@ -168,6 +180,7 @@
 			return 1;
 		}
 
+<<<<<<< HEAD
 		public function getMenus()
 		{
 			$mysqli = Connection::getConnection();
@@ -193,6 +206,25 @@
 			$menu->setRestaurantId($this->id);
 			$menu->setName($name);
 			return $menu->save();
+=======
+		public static function getMenus()
+		{
+			$mysqli = Connection::getConnection();
+			$menusArray = array();
+	    	//
+	    	//......
+	    	//
+	    	Connection::disconnect();
+	    	return $restaurantArray;	
+		}
+
+		public static function addMenu($name)
+		{
+	    	//
+	    	//......
+	    	//
+			return null;
+>>>>>>> ADD CU1/CU8 + CU5 to complete
 		}
 
 	    public function save() 
@@ -203,13 +235,21 @@
 		    	$query = "INSERT INTO restaurants (restaurateur_id,name) VALUES ('$this->restaurateur_id','$this->name')";
 				$result = $mysqli->query($query);
 				$this->id=$mysqli->insert_id;
+<<<<<<< HEAD
 				return $this;
+=======
+				return $result;
+>>>>>>> ADD CU1/CU8 + CU5 to complete
 			}
 			else 
 			{
 				$query = "UPDATE restaurants SET restaurateur_id='$this->restaurateur_id', name='$this->name' WHERE id='$this->id'";
 				$result = $mysqli->query($query);
+<<<<<<< HEAD
 				return $this;
+=======
+				return $result;
+>>>>>>> ADD CU1/CU8 + CU5 to complete
 			}
 			Connection::disconnect();
 	    }

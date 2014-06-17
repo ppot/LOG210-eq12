@@ -105,7 +105,11 @@
 
 			$sql_query = "SELECT * FROM Users WHERE id='$id'";
 			$result = $mysqli->query($sql_query);
+<<<<<<< HEAD
 			$row = $result->fetch_assoc();
+=======
+			$row = $result->fetch_array(MYSQLI_ASSOC);
+>>>>>>> ADD CU1/CU8 + CU5 to complete
 			$user = new User();
 			$user->setId($row['id']); 
 			$user->setPassword($row['password']);
@@ -205,6 +209,7 @@
 			return $address;
 		}
 
+<<<<<<< HEAD
 		public function getDeliveryAddress() 
 		{
 			$mysqli = Connection::getConnection();
@@ -225,11 +230,17 @@
 			return $address;
 		}
 
+=======
+>>>>>>> ADD CU1/CU8 + CU5 to complete
 		public function newAddress($address, $city, $phone, $postalcode)
 		{
 			if($this->type=="client") 
 			{
+<<<<<<< HEAD
 				Address::newAddress($this->id, $this->type, $address, $city, $phone, $postalcode, '1','0');
+=======
+				Address::newAddress($this->id, $this->type, $address, $city, $phone, $postalcode, '1');
+>>>>>>> ADD CU1/CU8 + CU5 to complete
 			}
 		}
 
@@ -243,6 +254,7 @@
 			$address->save();
 		}
 
+<<<<<<< HEAD
 		public function newDeliveryAddress($address,$city,$phone,$postalcode)
 		{
 			if($this->type=="client") 
@@ -297,6 +309,20 @@
 		public function save() 
 		{
 			$mysqli = Connection::getConnection();
+=======
+		public static function delete($id)
+		{
+			$mysqli = Connection::getConnection();
+			$query = "DELETE FROM users WHERE id='$id'";
+			$result = $mysqli->query($query);
+			Connection::disconnect();		
+			return 1;
+		}
+
+		public function save() 
+		{
+			$mysqli = Connection::getConnection();
+>>>>>>> ADD CU1/CU8 + CU5 to complete
 			if(empty($this->id)) 
 			{
 				$query = "INSERT INTO users (password, firstname, lastname, type, mail, birthdate) VALUES ('$this->password', '$this->firstname', '$this->lastname', '$this->type', '$this->mail', '$this->birthdate')";
@@ -308,7 +334,11 @@
 			{
 				$query = "UPDATE users SET password='$this->password' WHERE id='$this->id'";
 				$result = $mysqli->query($query);
+<<<<<<< HEAD
 				return $this;
+=======
+				return $result;
+>>>>>>> ADD CU1/CU8 + CU5 to complete
 			}
 			Connection::disconnect();
 		}

@@ -12,10 +12,13 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     <script src="../script/jquery.js"></script>
 	<script src="../script/app.js"></script>
 >>>>>>> ADD bootstrap / restyling
+=======
+>>>>>>> ADD CU1/CU8 + CU5 to complete
     <script src="../bootstrap/js/bootstrap.min.js"></script>
   </body>
 </html>

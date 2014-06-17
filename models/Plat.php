@@ -41,6 +41,7 @@ class Plat
 	public static function getById($id)
 	{
     	$mysqli = Connection::getConnection();
+<<<<<<< HEAD
 		$restaurantArray = array();
 		$query = "SELECT * FROM plats WHERE id='$id'";
 		$result = $mysqli->query($query);
@@ -60,6 +61,18 @@ class Plat
     	$query = "DELETE FROM plats WHERE id='$this->id'";
 		$result = $mysqli->query($query);
 		Connection::disconnect();
+=======
+    	//
+    	//......
+    	//
+    	return null;
+	}
+	public function remove()
+	{
+    	//
+    	//......
+    	//
+>>>>>>> ADD CU1/CU8 + CU5 to complete
 		return $this;
 	}
 
@@ -68,15 +81,27 @@ class Plat
     	$mysqli = Connection::getConnection();
     	if(empty($this->id)) 
 		{
+<<<<<<< HEAD
 	    	$query = "INSERT INTO plats (menu_id,name,price,description) VALUES ('$this->menu_id','$this->name','$this->price','$this->description')";
 			$result = $mysqli->query($query);
 			$this->id=$mysqli->insert_id;
+=======
+	    	//
+	    	//......
+	    	//
+>>>>>>> ADD CU1/CU8 + CU5 to complete
 			return $this;
 		}
 		else 
 		{
+<<<<<<< HEAD
 			$query = "UPDATE plats SET name='$this->name',price='$this->price',description='$this->description' WHERE id='$this->id'";
 			$result = $mysqli->query($query);
+=======
+	    	//
+	    	//......
+	    	//
+>>>>>>> ADD CU1/CU8 + CU5 to complete
 			return $this;
 		}
 		Connection::disconnect();

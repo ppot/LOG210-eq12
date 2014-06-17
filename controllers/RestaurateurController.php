@@ -14,8 +14,15 @@ class RestaurateurController
 	public static function getRestaurant()
 	{
 		$id = $_SESSION['id'];
+<<<<<<< HEAD
 		$restaurant = Restaurant::getRestaurantRestaurateurId($id);
 		echo json_encode($restaurant);
+=======
+    	//
+    	//......
+    	//
+		echo json_encode(null);
+>>>>>>> ADD CU1/CU8 + CU5 to complete
 	}
 
 	public static function addMenu()
@@ -28,33 +35,61 @@ class RestaurateurController
 		else
 		{
 			$id = $_SESSION['id'];
+<<<<<<< HEAD
 			$restaurant = Restaurant::getRestaurantRestaurateurId($id);	
 			echo json_encode($restaurant->addMenu($name));
+=======
+	    	//
+	    	//......
+	    	//			
+			echo json_encode(null);
+>>>>>>> ADD CU1/CU8 + CU5 to complete
 		}
 	}
 
 	public static function getMenus()
 	{
 		$id = $_SESSION['id'];
+<<<<<<< HEAD
 		$restaurant = Restaurant::getRestaurantRestaurateurId($id);	
 		echo json_encode($restaurant->getMenus());
+=======
+    	//
+    	//......
+    	//		
+		echo json_encode(null);
+>>>>>>> ADD CU1/CU8 + CU5 to complete
 	}
 
 	public static function getMenu()
 	{
 		$id = $_GET['id'];
+<<<<<<< HEAD
 		$menu = Menu::getMenu($id);	
 		echo json_encode($menu);
+=======
+    	//
+    	//......
+    	//	
+		echo json_encode(null);
+>>>>>>> ADD CU1/CU8 + CU5 to complete
 	}
 
 	public static function updateMenu()
 	{
 		$id = $_GET['id'];
 		$name = $_GET['name'];
+<<<<<<< HEAD
 		$menu = Menu::getMenu($id);	
 		$menu->setName($name);
 		$result = $menu->save();
 		echo json_encode($result);
+=======
+    	//
+    	//......
+    	//
+		echo json_encode(null);
+>>>>>>> ADD CU1/CU8 + CU5 to complete
 	}
 
 	public static function createPlat()
@@ -63,25 +98,46 @@ class RestaurateurController
 		$name = $_GET['name'];
 		$price = $_GET['price'];
 		$description = $_GET['description'];
+<<<<<<< HEAD
 
 		$menu = Menu::getMenu($menu_id);
 		$plat = $menu->addPlat($name,$price,$description);
 		echo json_encode($plat);
+=======
+    	//
+    	//......
+    	//
+		echo json_encode(null);
+>>>>>>> ADD CU1/CU8 + CU5 to complete
 	}
 
 	public static function getPlats()
 	{
 		$menu_id = $_GET['menu_id'];
+<<<<<<< HEAD
 		$menu = Menu::getMenu($menu_id);
 
 		echo json_encode($menu->getPlats());
+=======
+    	//
+    	//......
+    	//
+		echo json_encode(null);
+>>>>>>> ADD CU1/CU8 + CU5 to complete
 	}
 
 	public static function getPlat()
 	{
 		$id = $_GET['id'];
+<<<<<<< HEAD
 		$plat = Plat::getById($id);
 		echo json_encode($plat);
+=======
+    	//
+    	//......
+    	//
+		echo json_encode(null);
+>>>>>>> ADD CU1/CU8 + CU5 to complete
 	}
 
 	public static function updatePlat()
@@ -91,6 +147,7 @@ class RestaurateurController
 		$name = $_GET['name'];
 		$price = $_GET['price'];
 		$description = $_GET['description'];
+<<<<<<< HEAD
 
 		$plat = Plat::getById($id);
 		$plat->setName($name);
@@ -98,11 +155,18 @@ class RestaurateurController
 		$plat->setDescription($description);	
 		$result = $plat->save();
 		echo json_encode($result);
+=======
+    	//
+    	//......
+    	//
+		echo json_encode(null);
+>>>>>>> ADD CU1/CU8 + CU5 to complete
 	}
 
 	public static function delPlat()
 	{
 		$id = $_GET['id'];
+<<<<<<< HEAD
 		$plat = Plat::getById(id);
 		$result = $plat->remove();
 		echo json_encode($result);
@@ -114,6 +178,12 @@ class RestaurateurController
 		$id = $_GET['id'];
 		$menu = Menu::getForRestaurantId($id);
 		echo json_encode($menu);
+=======
+    	//
+    	//......
+    	//
+		echo json_encode(null);
+>>>>>>> ADD CU1/CU8 + CU5 to complete
 	}
 
 }

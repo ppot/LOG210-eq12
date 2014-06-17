@@ -24,9 +24,13 @@
 			{
 				unset($_SESSION['user']);
 <<<<<<< HEAD
+<<<<<<< HEAD
 				unset($_SESSION['type']);
 =======
 >>>>>>> ADD bootstrap / restyling
+=======
+				unset($_SESSION['type']);
+>>>>>>> ADD CU1/CU8 + CU5 to complete
 				unset($_SESSION['id']);
 			}
 		}
@@ -111,10 +115,12 @@
 =======
 
 			$update = (empty($password));
-			if($update) {
+			if($update) 
+			{
 				echo json_encode(0);
 			}
-			else {
+			else 
+			{
 				$user=User::getCurrentUser();
 				$user->changePassword($password);
 				$userResult=$user->save();
@@ -134,11 +140,16 @@
 
 			$update = (empty($address) || empty($city) || empty($phone) || empty($postalcode));
 <<<<<<< HEAD
+<<<<<<< HEAD
 			if($update) 
 			{
 =======
 			if($update) {
 >>>>>>> ADD bootstrap / restyling
+=======
+			if($update) 
+			{
+>>>>>>> ADD CU1/CU8 + CU5 to complete
 				echo json_encode(0);
 			}
 			else 

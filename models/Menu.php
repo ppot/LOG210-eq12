@@ -29,6 +29,7 @@ class Menu
 	public static function getMenu($id)
 	{
     	$mysqli = Connection::getConnection();
+<<<<<<< HEAD
     	$query = "SELECT * FROM menus WHERE id='$id'";
 		$result = $mysqli->query($query);
 		$row = $result->fetch_assoc();
@@ -37,10 +38,16 @@ class Menu
 			$menu->setRestaurantId($row['restaurant_id']);
 			$menu->setName($row['name']);
     	Connection::disconnect();
+=======
+    	//
+    	//......
+    	//
+>>>>>>> ADD CU1/CU8 + CU5 to complete
     	return $menu;
 
     }
 
+<<<<<<< HEAD
     public static function getForRestaurantId($id)
     {
     	$mysqli = Connection::getConnection();
@@ -60,10 +67,13 @@ class Menu
     	return $menuArray;	
     }
 
+=======
+>>>>>>> ADD CU1/CU8 + CU5 to complete
     public function getPlats() 
     {
     	$mysqli = Connection::getConnection();
 		$platsArray = array();
+<<<<<<< HEAD
 		$query = "SELECT * FROM plats WHERE menu_id='$this->id'";
 		$result = $mysqli->query($query);
 		while ($row = $result->fetch_assoc()) 
@@ -77,18 +87,30 @@ class Menu
 
 			array_push($platsArray,$plat);
 		}
+=======
+    	//
+    	//......
+    	//
+>>>>>>> ADD CU1/CU8 + CU5 to complete
     	Connection::disconnect();
     	return $platsArray;
     }
 
 	public function addPlat($name,$price,$description)
 	{
+<<<<<<< HEAD
 		$plat = new Plat();
 		$plat->setMenuId($this->id);
 		$plat->setName($name);
 		$plat->setPrice($price);	
 		$plat->setDescription($description);
 		return $plat->save();
+=======
+    	//
+    	//......
+    	//
+		return null;
+>>>>>>> ADD CU1/CU8 + CU5 to complete
 	}
 
 	public function save()
@@ -96,15 +118,27 @@ class Menu
     	$mysqli = Connection::getConnection();
     	if(empty($this->id)) 
 		{
+<<<<<<< HEAD
 	    	$query = "INSERT INTO menus (restaurant_id,name) VALUES ('$this->restaurant_id','$this->name')";
 			$result = $mysqli->query($query);
 			$this->id=$mysqli->insert_id;
+=======
+	    	//
+	    	//......
+	    	//
+>>>>>>> ADD CU1/CU8 + CU5 to complete
 			return $this;
 		}
 		else 
 		{
+<<<<<<< HEAD
 			$query = "UPDATE menus SET name='$this->name' WHERE id='$this->id'";
 			$result = $mysqli->query($query);
+=======
+	    	//
+	    	//......
+	    	//
+>>>>>>> ADD CU1/CU8 + CU5 to complete
 			return $result;
 		}
 		Connection::disconnect();

@@ -123,6 +123,12 @@
 =======
 	require_once('../partial/header.php');
 ?>
+<script type="text/javascript">
+	$(document).ready(function(){
+		app.user.init();
+		app.user.user_infos();
+	});
+</script>
               <div class="row authentication" id="registerPage">
       <div class="col-md-8 col-md-offset-2">
                <div class="">
@@ -133,15 +139,15 @@
               </div>
           <div class="col-md-6">
             <div class="auth-box">
-              <input id="password" type="password" name="password" max="20" class="col-md-10 auth-input" placeholder="Mot de passe">
+              <input id="password" type="password" name="password" max="20" class="col-md-10 auth-input" placeholder="mot de passe">
             </div>
           </div>
           <div class="col-md-6">
             <div class="auth-box">
-                <input type="text" id="address" name="address" max="50" class="col-md-10 auth-input"  placeholder="Adresse">
-                <input id="city" type="text" name="city" max="50" class="col-md-10 auth-input"  placeholder="Ville">
-                <input id="postalcode" type="text" name="potalCode" max="6" class="col-md-10 auth-input"  placeholder="Code postal">
-                <input id="phone" type="text" name="telephone" max="10" class="col-md-10 auth-input"  placeholder="Téléphone">
+                <input type="text" id="address" name="address" max="50" class="col-md-10 auth-input"  placeholder="adresse">
+                <input id="city" type="text" name="city" max="50" class="col-md-10 auth-input"  placeholder="ville">
+                <input id="postalcode" type="text" name="potalCode" max="6" class="col-md-10 auth-input"  placeholder="code postal">
+                <input id="phone" type="text" name="telephone" max="10" class="col-md-10 auth-input"  placeholder="tséléphone">
             </div>
           </div>
                   <div class="clearfix">
@@ -185,6 +191,7 @@
 <?php
 	require_once('../partial/footer.php');
 
+<<<<<<< HEAD
 ?>
 <script type="text/javascript">
 	
@@ -218,3 +225,6 @@
 			}
 </script>
 >>>>>>> ADD bootstrap / restyling
+=======
+?>
+>>>>>>> ADD CU1/CU8 + CU5 to complete

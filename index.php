@@ -65,27 +65,33 @@
   <body>
     <div class="container">
   		<?php
-			if(isset($_SESSION['user']) && !empty($_SESSION['user'])) {
-				?>
+		if(isset($_SESSION['user']) && !empty($_SESSION['user'])) {
+			?>
 
-	            <div class="row authentication quick-menu">
-			      	<div class="col-md-8 col-md-offset-2">
-				<a href="javascript:app.user.oOut();" class="pull-right">deconnection</a>
+            <div class="row authentication quick-menu">
+		      	<div class="col-md-8 col-md-offset-2">
+			<a href="javascript:app.user.oOut();" class="pull-right">deconnection</a>
 
-			                <div class="page-header">
-			                    <div class="authentication-header">
-			                      <h3>Menu rapide <span class="pull-right user">
-			                      	<?php
-			                      	$user = $_SESSION['user'];
-			                      	echo $user;
-			                      	?>
-			                      </span></h3>
-			                    </div>
-			              </div>
-			          <div class="col-md-3">
-			          	<a href='views/profile.php'>profil</a>
+		                <div class="page-header">
+		                    <div class="authentication-header">
+		                      <h3>Menu rapide <span class="pull-right user">
+		                      	<?php
+		                      	$user = $_SESSION['user'];
+		                      	echo $user;
+		                      	?>
+		                      </span></h3>
+		                    </div>
+		              </div>
+		          <div class="col-md-3">
+		          	<?php
+		          	$type = $_SESSION['type'];
+		          		if($type == "client")
+		          		{ 	
+	          			?>
 			            <div class="auth-box">
+	    			          	<a href='views/profile.php'>profil</a>
 			            </div>
+<<<<<<< HEAD
 			          </div>
 			          <div class="col-md-3">
 			          	<!-- <a href='javascript:app.user.user_update()'>modifier mot de passe</a> -->
@@ -305,6 +311,46 @@
 				app.general.index.init();
 =======
 			if(!isset($_SESSION['user']) || empty($_SESSION['user'])) {
+=======
+	          			<?php
+		          		}
+
+		          		if($type == "entrepreneur")
+		          		{ 
+		          		?>
+				            <div class="auth-box">
+		    			          	<a href='views/entrepreneur.php'>gestions restaurateurs/restaurants</a>
+				            </div>
+		          		<?php
+		          		}
+		          		if($type == "restaurateur")
+		          		{ 
+		          		?>
+				            <div class="auth-box">
+		    			          	<a href='views/restaurateur.php'>gestions menus</a>
+				            </div>
+		          		<?php
+		          		}
+		          		?>
+
+		          </div>
+		          <div class="col-md-3">
+		          	<!-- <a href='javascript:app.user.user_update()'>modifier mot de passe</a> -->
+		            <div class="auth-box">
+		            </div>
+		          </div>
+		          <div class="col-md-3">
+		          	<!-- <a href='javascript:app.user.user_update()'>modifier mot de passe</a> -->
+		            <div class="auth-box">
+		            </div>
+		        </div>
+      		</div>
+      	</div>
+          <?php
+		}
+
+		if(!isset($_SESSION['user']) || empty($_SESSION['user'])) {
+>>>>>>> ADD CU1/CU8 + CU5 to complete
 		?>
        	<div class="row authentication"  id="connectPage">
  			<div class="col-md-5 col-md-offset-3">
