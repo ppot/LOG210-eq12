@@ -2,10 +2,12 @@
 	require_once('../action/db/Connection.php');
 	require_once('../models/User.php');
 	session_start();
-	class Users {
+	class Users 
+	{
 		public function __construct() {}
 
-		public static function getUser(){
+		public static function  getUser()
+		{
 			$user = User::getCurrentUser();
 			 echo json_encode($user->getMainAddress());
 		}
@@ -21,6 +23,7 @@
 			if($_SESSION['user'] != "" && $_SESSION['id'] != "")
 			{
 				unset($_SESSION['user']);
+				unset($_SESSION['type']);
 				unset($_SESSION['id']);
 			}
 		}
@@ -48,49 +51,79 @@
 				echo json_encode(0);
 			}
 			else {
-				$date =  date('Y-m-d', strtotime($birthdate));
-				$user = new User();
-				$user->setPassword($password);
-				$user->setFirstname($firstname);
-				$user->setLastname($lastname);
-				$user->setType('client'); 
-				$user->setMail($mail);
-				$user->setBirthdate($date);
-				$user->save();
 
-				$user->newAddress($addresse, $city, $phone, $postalcode);
+				$user = User::userExist($mail);
+				if($user != null)
+				{
+					echo json_encode(2);
+				}
+				else
+				{
+					$date =  date('Y-m-d', strtotime($birthdate));
+					$user = new User();
+					$user->setPassword($password);
+					$user->setFirstname($firstname);
+					$user->setLastname($lastname);
+					$user->setType('client'); 
+					$user->setMail($mail);
+					$user->setBirthdate($date);
+					$user->save();
 
-				echo json_encode(1);
+					$user->newAddress($addresse, $city, $phone, $postalcode);
+
+					echo json_encode(1);
+				}
+
 			}
 		}
 
-		public static function userInfos() {
+		public static function userInfos() 
+		{
 			$user = User::getCurrentUser();
 			$address = $user->getMainAddress();
 			echo json_encode($address);
 		}
 
+		public static function updatePassword()
+		{
+			$id = $_SESSION['id'];
+	
+			$password = $_GET['password'];
 
-		public static function update()
+			$update = (empty($password));
+			if($update) 
+			{
+				echo json_encode(0);
+			}
+			else 
+			{
+				$user=User::getCurrentUser();
+				$user->changePassword($password);
+				$userResult=$user->save();
+				echo json_encode(1);
+			}
+		}
+
+		public static function updateAddress()
 		{
 			$id = $_SESSION['id'];
 
 			$address = $_GET['address'];
 			$city = $_GET['city'];
 			$phone =  $_GET['phone'];
-			$postalcode = $_GET['postalcode'];	
-			$password = $_GET['password'];
+			$postalcode =$_GET['postalcode'];	
 
-			$update = (empty($password) || empty($address) || empty($city) || empty($phone) || empty($postalcode));
-			if($update) {
+			$update = (empty($address) || empty($city) || empty($phone) || empty($postalcode));
+			if($update) 
+			{
 				echo json_encode(0);
 			}
-			else {
+			else 
+			{
 				$user=User::getCurrentUser();
-				$user->changePassword($password);
 				$userResult=$user->save();
 				$addressResult = $user->updateAddress($address, $city, $phone, $postalcode);
-				echo json_encode($userResult + $addressResult);
+				echo json_encode(1);
 			}
 		}
 

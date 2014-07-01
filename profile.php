@@ -1,17 +1,16 @@
 <?php
-	$_SESSION["page"] = "profile";
 	require_once('partial/header.php');
 ?>
 <div>
 	<?php
-			if(isset($_SESSION['user']) && !empty($_SESSION['user']))
+			if(isset($_SESSION['username']) && !empty($_SESSION['username']))
 			{
-				$user =  $_SESSION['user'];
+				$user =  $_SESSION['username'];
 				echo "logged in as $user";
 				echo "<a href='javascript:app.user.oOut()'>logout</a>";
 			}
 			
-			if(!isset($_SESSION['user']))
+			if(!isset($_SESSION['username']))
 			{
 			}
 
@@ -57,6 +56,10 @@
 				$('#postalcode').val('H3J1N5');
 			}
 </script>
+
+
+
+
 
 <?php
 	require_once('partial/footer.php');

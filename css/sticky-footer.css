@@ -1,0 +1,59 @@
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+/*  background-color: #f5f5f5;*/
+
+}
+
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+/*.container {
+  width: auto;
+  max-width: 960px;
+  padding: 0 15px;
+}*/
+.container .text-muted {
+  margin: 20px 0;
+}
+
+.authentication{
+  position: relative;
+  margin-top: 5%;
+}
+
+.info{
+  font-size: 12px;
+}
+
+.auth-box {
+  padding: 5px 20px 20px 5px;
+}
+
+.auth-input {
+  height: 28px;
+  margin-bottom: 10px;
+}
+.login-content {
+    background-color: #f5f5f5;
+}
+.authentication-header {
+  margin-left: 10px;
+}
+
+
