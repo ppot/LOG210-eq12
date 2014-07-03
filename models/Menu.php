@@ -49,7 +49,7 @@ class Menu
     {
     	$mysqli = Connection::getConnection();
 		$platsArray = array();
-		$query = "SELECT * FROM plats";
+		$query = "SELECT * FROM plats WHERE menu_id = '$this->id'";
 		$restult = $mysqli->query($query);
 		while($row = $result->fetch_assoc())
 		{
