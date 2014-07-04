@@ -34,6 +34,7 @@ class Menu
     	$result = $mysqli->query($query);
     	$row = $result->fetch_assoc();
 
+
     	$menu = new Menu();
 
     	$menu->setId($row['id']);
