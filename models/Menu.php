@@ -31,7 +31,7 @@ class Menu
     	$mysqli = Connection::getConnection();
 
     	$query = "SELECT * FROM menus WHERE id = '$id'";
-    	$result = mysqli->query($query);
+    	$result = $mysqli->query($query);
     	$row = $result->fetch_array(MYSQLI_ASSOC);
 
     	$menu = new Menu();
