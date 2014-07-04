@@ -31,8 +31,8 @@ class Menu
     	$mysqli = Connection::getConnection();
 
     	$query = "SELECT * FROM menus WHERE id = '$id'";
-    	$result = mysqli->query($query);
-    	$row = $result->fetch_array(MYSQLI_ASSOC);
+    	$result = $mysqli->query($query);
+    	$row = $result->fetch_assoc();
 
     	$menu = new Menu();
 
@@ -45,12 +45,12 @@ class Menu
     	return $menu;
     }
 
-    public function getPlats() 
+    public function getPlats($menu_id) 
     {
     	$mysqli = Connection::getConnection();
 		$platsArray = array();
-		$query = "SELECT * FROM plats WHERE menu_id = '$this->id'";
-		$restult = $mysqli->query($query);
+		$query = "SELECT * FROM plats WHERE menu_id = '$menu_id'";
+		$result = $mysqli->query($query);
 		while($row = $result->fetch_assoc())
 		{
 			$plat = new Plat();
@@ -66,13 +66,14 @@ class Menu
     	return $platsArray;
     }
 
-	public function addPlat($name,$price,$description)
+	public function addPlat($name, $price, $description)
 	{
-    	$mysqli = Connection::getConnection();
-    	$query = "INSERT INTO plats (description, name, price, menu_id) VALUES ('$description', '$name', '$price' '$this->id')";
-    	$result = $mysqli->query($query);
-	    Connection::disconnect();
-		return $result;
+    	$plat = new Plat();
+    	$plat->setMenuId($this->id);
+    	$plat->setName($name);
+    	$plat->setPrice($price);
+    	$plat->setDescription($description);
+		return $plat->save();
 	}
 
 	public function save()
@@ -80,14 +81,14 @@ class Menu
     	$mysqli = Connection::getConnection();
     	if(empty($this->id)) 
 		{
-			$query = "INSERT INTO menus (name, restaurant_id) VALUES ('$this->name', '$this->restaurant_id')";
+			$query = "INSERT INTO menus (name, restaurant_id) VALUES ('$this->name', '$this->id')";
 			$result = $mysqli->query($query);
 			$this->id=$mysqli->insert_id;
 			return $result;
 		}
 		else 
 		{
-	    	$query = "UPDATE menus SET menu_id = '$this->menu_id', name = '$this->name' WHERE id = '$this->id'";
+	    	$query = "UPDATE menus SET name = '$this->name' WHERE id = '$this->id'";
 	    	$result = $mysqli->query($query);
 	    	return $result;
 		}

@@ -112,8 +112,6 @@ class EntrepreneurController
 			$result = $restaurant->save();
 			echo json_encode($result);
 		}
-
-
 	}
 
 	public static function delRestaurateur()

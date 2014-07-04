@@ -72,13 +72,13 @@ class Plat
 	    	$query = "INSERT INTO plats (description, name, price, menu_id) VALUES ('$this->description', '$this->name', '$this->price', '$this->menu_id')";
 			$result = $mysqli->query($query);
 			$this->id=$mysqli->insert_id;
-			return $result;
+			return $this;
 		}
 		else 
 		{
 			$query = "UPDATE plats SET description = '$this->description', name = '$this->name', price = '$this->price', menu_id = '$this->menu_id' WHERE id = '$this->id'";
 			$result = $mysqli->query($query);
-			return $result;
+			return $this;
 		}
 		Connection::disconnect();
 	}

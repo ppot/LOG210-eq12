@@ -50,8 +50,7 @@
 		public static function getRestaurantById($id)
 		{
 			$mysqli = Connection::getConnection();
-
-			$sql_query = "SELECT * FROM restaurants WHERE id='$id'";
+			$sql_query = "SELECT * FROM restaurants WHERE restaurateur_id='$id'";
 			$result = $mysqli->query($sql_query);
 			$row = $result->fetch_array(MYSQLI_ASSOC);
 
@@ -144,7 +143,7 @@
 	    public function getMainAddress() 
 	    {
 			$mysqli = Connection::getConnection();
-			$query = "SELECT * FROM address WHERE adresseble_id = $this->id AND adresseble_type = 'restaurant' AND main='1'";
+			$query = "SELECT * FROM address WHERE adresseble_id = '$this->id' AND adresseble_type = 'restaurant' AND main='1'";
 			$result = $mysqli->query($query);
 			$row = $result->fetch_assoc();
 			$address = new Address();
@@ -169,12 +168,11 @@
 			return 1;
 		}
 
-		public static function getMenus()
+		public static function getMenus($id)
 		{
 			$mysqli = Connection::getConnection();
 			$menusArray = array();
-	    	
-			$query = "SELECT * FROM menus WHERE restaurant_id = '$this->id'";
+			$query = "SELECT * FROM menus WHERE restaurant_id = '$id'";
 			$result = $mysqli->query($query);
 
 			while ($row = $result->fetch_assoc()) 
@@ -193,11 +191,10 @@
 
 		public static function addMenu($name)
 		{
-	    	$mysqli = Connection::getConnection();
-	    	$query = "INSERT INTO menus (name, restaurant_id) VALUES ('$name', '$this->id')";
-	    	$result = $mysqli->query($query);
-	    	Connection::disconnect();
-			return $result;
+	    	$menu = new Menu();
+	    	$menu->setName($name);
+	    	$menu->setRestaurantId($id);
+			return $menu->save();
 		}
 
 	    public function save() 
@@ -212,7 +209,7 @@
 			}
 			else 
 			{
-				$query = "UPDATE restaurants SET restaurateur_id='$this->restaurateur_id', name='$this->name' WHERE id='$this->id'";
+				$query = "UPDATE restaurants SET name='$this->name' WHERE id='$this->id'";
 				$result = $mysqli->query($query);
 				return $result;
 			}

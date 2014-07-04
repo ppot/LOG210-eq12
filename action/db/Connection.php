@@ -3,7 +3,7 @@
 		private static $connection;
 		private static $hostname = "localhost";
 		private static $username = "root";
-		private static $password = "";
+		private static $password = "root";
 		private static $database_name = "log210";
 
 		public function __construct() {}

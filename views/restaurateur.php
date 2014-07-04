@@ -31,7 +31,7 @@
 						</div>
 						<div class="row" id="menu-create-error">
 						    <div class="col-md-10 alert-danger text-center">
-	                			<span id="menu-create-error-message">le nom est oubligatoire</span>
+	                			<span id="menu-create-error-message">le nom est obligatoire</span>
 	                		</div>
 						</div>
 						<div class="row" id="menu-create-success">

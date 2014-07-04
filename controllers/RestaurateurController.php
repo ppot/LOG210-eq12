@@ -36,8 +36,7 @@ class RestaurateurController
 	public static function getMenus()
 	{
 		$id = $_SESSION['id'];
-		Restaurant::setId($id);
-    	$result = Restaurant::getMenus();
+    	$result = Restaurant::getMenus($id);
 		echo json_encode($result);
 	}
 
@@ -52,10 +51,10 @@ class RestaurateurController
 	{
 		$id = $_GET['id'];
 		$name = $_GET['name'];
-    	Menu::setId($id);
-    	Menu::setName($name);
-    	$result = Menu::save();
-		echo json_encode($result);
+    	$menu = Menu::getMenu($id);
+    	$menu->setName($name);
+    	$menu->save();
+		echo json_encode($menu);
 	}
 
 	public static function createPlat()
@@ -64,16 +63,16 @@ class RestaurateurController
 		$name = $_GET['name'];
 		$price = $_GET['price'];
 		$description = $_GET['description'];
-    	Menu::setId($menu_id);
-		$result = Menu::addPlat($name, $price, $description);
-		echo json_encode($result);
+		$menu = Menu::getMenu($menu_id);
+		$plat = $menu->addPlat($name, $price, $description);
+		echo json_encode($plat);
 	}
 
 	public static function getPlats()
 	{
 		$menu_id = $_GET['menu_id'];
-		Menu::setId($menu_id);
-		$result = Menu::getPlats();
+		$menu = Menu::getMenu($menu_id);
+		$result = $menu->getPlats($menu_id);
 		echo json_encode($result);
 	}
 
@@ -87,17 +86,11 @@ class RestaurateurController
 	public static function updatePlat()
 	{
 		$id = $_GET['id'];
-
 		$name = $_GET['name'];
 		$price = $_GET['price'];
 		$description = $_GET['description'];
-    	
-		Plat::setId($id);
-		Plat::setName($name);
-		Plat::setPrice($price);
-		Plat::setDecription($description);
 
-		$result = Plat::save();
+		$result = Plat::save($id, $name, $price, $description);
 
 		echo json_encode($result);
 	}
@@ -105,7 +98,6 @@ class RestaurateurController
 	public static function delPlat()
 	{
 		$id = $_GET['id'];
-    	Plat::setId($id);
     	$result = Plat::remove();
 		echo json_encode($result);
 	}
