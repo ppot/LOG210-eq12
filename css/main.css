@@ -1,0 +1,208 @@
+body{
+	width: 100%;
+}
+.container-fluid {
+    padding: 0px;
+}
+
+#header{
+	position: relative;
+	margin-top: 5%;
+	height: 10%;
+	width: 100%;
+}
+
+.title{
+	text-align: center;
+}
+
+#footer{
+	height: 100px;
+}
+
+.main-content-hover {
+    background-color: rgba(0, 0, 0, 0.83);
+}
+
+.main-opa{
+  opacity:0.7;
+}
+.plats-opa{
+	 background-color: rgba(0, 0, 0, 1);
+}
+
+.copiright{
+	position: relative;
+	top: 80px;
+}
+
+.user{
+	float: right;
+}
+
+.web-tile{
+	text-decoration: none;
+	font-size: 2.250em;
+	letter-spacing: .145em;
+	line-height: 30px;
+	text-transform: uppercase;
+	/*font-weight:normal;*/
+	/*font-family: Tahoma, Verdana, Segoe, sans-serif;*/
+}
+
+.navigation li {
+    display: inline;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.restaurants li{
+    display: inline;
+    padding-left: 10px;
+    padding-right: 10px;	
+}
+
+.menus li {
+	display: block;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+ul.navigation,
+ul.menus,
+ul.navigation li,
+ul.restaurants li,
+ul.menus li{
+    margin-left: 0;
+    padding-left: 0;
+}
+ul.navigation li a,
+ul.restaurants li,
+ul.menus li a,
+.user,
+.footer{
+	color: #444;
+	text-decoration: none;
+	font-size: 0.85em;
+	letter-spacing: .145em;
+	line-height: 30px;
+	text-transform: uppercase;
+}
+
+ul.restaurants li a,
+#plats-index,
+#confirmRequest{
+	color: #EEE;
+}
+ul.restaurants li a:hover{
+	color:#FFFFFF;
+}
+
+ul.navigation li a:hover{
+	color:#999;
+}
+
+.back{
+	position: relative;
+	min-height: 853px;
+	background: url('../medias/SF.jpg') no-repeat center center ;
+	  -webkit-background-size: cover;
+	  -moz-background-size: cover;
+	  -o-background-size: cover;
+	  background-size: cover;
+}
+
+#auth,
+#entrepreneur,
+#restaurateur,
+#cart{
+	position: relative;
+	min-height: 853px;
+	color: #444;
+	text-decoration: none;
+	font-size: 0.80em;
+	letter-spacing: .145em;
+	line-height: 30px;
+	text-transform: uppercase;	
+}
+
+#login{
+	position: relative;
+	margin-top: 10%;
+}
+#register{
+	position: relative;
+	margin-top: 8%;
+}
+
+#addRestaurateur,
+#listRestaurateurs,
+#updateRestaurateur,
+#addRestaurant,
+#listRestaurants,
+#updateRestaurant{
+	position: relative;
+	margin-top: 4%;	
+}
+
+.login-content {
+    background-color: #FFFFFF;
+}
+
+.box{
+	  padding: 5px 20px 20px 5px;
+}
+.space {
+  margin-bottom: 10px;
+}
+
+.option{
+	min-height: 36px;
+}
+
+.aspace{
+	padding-left: 5px;
+}
+
+a:hover{
+	text-decoration: none;
+}
+
+.a-link {
+    padding: 10px 15px;
+    background: #444;
+    color: #FFF;
+}
+.a-link:hover{
+    background: #999;
+	color:#FFF;
+}
+
+.cart {
+	background-color: #444;
+	color: #EEE;
+	/*text-decoration: none;*/
+	font-size: 1.4em;
+	letter-spacing: .145em;
+	padding: 5px;
+	/*line-height: 30px;*/
+	text-transform: uppercase;	
+}
+.cart:hover{
+	background-color: #999;
+	color: #EEE;
+}
+.confirmCancel{
+	position: relative;
+	color: #EEE;
+	float: right;
+}
+.confirmCancel:hover{
+	color: #FFF;
+}
+
+#confirmQTE{
+	color: #444;	
+}
+.right{
+	float: right;
+}
