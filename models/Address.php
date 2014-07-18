@@ -12,6 +12,7 @@
 		public $phone;		
 		public $postalcode;
 		public $main;
+		public $delivery;
 
 		public function __construct() {}
 
@@ -81,27 +82,45 @@
 	    	return $this->main = $main;
 	    } 
 
-		// function __construct($id, $addresseble_id, $type, $address, $city, $phone, $postalcode, $main)
-		// {
-		// 	$this->setId($id); 
-		// 	$this->setAddressebleId($addresseble_id);
-		// 	$this->setType($type);
-		// 	$this->setNoMaison($address);
-		// 	$this->setCity($city); 
-		// 	$this->setPhone($phone);
-		// 	$this->setPostalcode($postalcode); 
-		// 	$this->setMain($main);
-		// }
+		public function setDelivery($delivery) {
+	    	return $this->delivery = $delivery;
+	    } 
 
-		public static function newAddress($addresseble_id, $addressebleType, $address, $city, $phone, $postalcode, $main) {
+
+	    public static function getAddressById($id)
+	    {
+	    	$mysqli = Connection::getConnection();
+			$query = "SELECT * FROM address  WHERE id = '$id'";
+			
+			$result = $mysqli->query($query);
+			$row = $result->fetch_assoc(); 
+
+				$address = new Address();
+				$address->setId($row['id']); 
+				$address->setAddressebleId($row['adresseble_id']);
+				$address->setType($row['adresseble_type']);
+				$address->setAddress($row['address']);
+				$address->setCity($row['city']); 
+				$address->setPhone($row['phone']);
+				$address->setPostalcode($row['postalcode']); 
+				$address->setMain($row['main']);
+				$address->setDelivery($row['delivery']);
+
+	    	Connection::disconnect();
+	    	return $address;
+	    }
+
+		public static function newAddress($addresseble_id, $addressebleType, $addr, $city, $phone, $postalcode, $main, $delivery) 
+		{
 			$address = new Address();
 			$address->setAddressebleId($addresseble_id);
 			$address->setType($addressebleType);
-			$address->setAddress($address);
+			$address->setAddress($addr);
 			$address->setCity($city); 
 			$address->setPhone($phone);
 			$address->setPostalcode($postalcode); 
 			$address->setMain($main);
+			$address->setDelivery($delivery);
 			$address->save();
 		}
 
@@ -109,12 +128,12 @@
 		{
 			$mysqli = Connection::getConnection();
 			if(empty($this->id)) {
-				$query = "INSERT INTO address (adresseble_id,adresseble_type,no_maison,street,city,phone,postalcode,main) VALUES ('$this->addressebleId','$this->addressebleType','$this->no_maison','$this->street','$this->city','$this->phone','$this->postalcode','$this->main')";
+				$query = "INSERT INTO address (adresseble_id,adresseble_type,address,city,phone,postalcode,main,delivery) VALUES ('$this->addressebleId','$this->addressebleType','$this->address','$this->city','$this->phone','$this->postalcode','$this->main','$this->delivery')";
 				$result = $mysqli->query($query);
 				return $result;
 			}
 			else {
-				$query = "UPDATE address SET address='$this->address', city='$this->city', phone='$this->phone', postalcode='$this->postalcode' WHERE adresseble_id = $this->addressebleId AND adresseble_type = '$this->addressebleType'";
+				$query = "UPDATE address SET address='$this->address', city='$this->city', phone='$this->phone', postalcode='$this->postalcode',main='$this->main',delivery='$this->delivery' WHERE id = '$this->id'";
 				$result = $mysqli->query($query);
 				return $result;
 			}
