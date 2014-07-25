@@ -8,5 +8,6 @@
 	echo '<script src="http://localhost:8888/210/script/models/cartItem.js"></script>';
 	echo '<script src="http://localhost:8888/210/script/models/cart.js"></script>';
 	echo '<script src="http://localhost:8888/210/script/models/order.js"></script>';
+	echo '<script src="http://localhost:8888/210/script/models/livreur.js"></script>';
 	echo '<script src="http://localhost:8888/210/script/app.js"></script>';
 ?>

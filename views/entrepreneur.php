@@ -21,9 +21,98 @@
 	          <li><a href="javascript:app.general.entrepreneur.addRestaurateur()">Ajouter restaurateur</a></li>
 	          <li><a href="javascript:app.general.entrepreneur.addRestaurant()">Ajouter restaurant</a></li>
 	          <li><a href="javascript:app.general.entrepreneur.restaurateurs()">restaurateurs</a></li>
-	           <li><a href="javascript:app.general.entrepreneur.restaurants()">restaurants</a></li>         
+	           <li><a href="javascript:app.general.entrepreneur.restaurants()">restaurants</a></li>  
+	           <li><a href="javascript:app.general.entrepreneur.addLivreur()">Ajouter livreur</a></li>
+	           <li><a href="javascript:app.general.entrepreneur.livreurs()">livreurs</a></li>
 	        </ul>
 	    </div>
+	    <div id="addLivreur" class="col-md-4 col-md-offset-4">
+		    <div class="login-content opa">
+		    	  <div>
+		        	<div class="authentication-header">
+		        		<h3>Ajouter un Livreur</h3>
+						<p class="info"><a href="javascript:app.entrepreneur.createLivreur()">Ajouter</a></p>
+		        	</div>
+		    	</div>
+		    	<span class="box">
+					<input id="livMail" type="email" class="col-md-10 col-md-offset-1 space" placeholder="courriel">
+				 	<input id="livPassword" type="password" max="20" class="col-md-10 col-md-offset-1 space" placeholder="mot de passe">
+					<input id="livFirstname" type="text"  max="30" class="col-md-10 col-md-offset-1 space" placeholder="prénom ">
+					<input id="livLastname" type="text" max="30" class="col-md-10 col-md-offset-1 space" placeholder="nom">
+		    	</span>
+		     	 <div class="clearfix">
+					<div id="livreur-create-error">
+					    <div class="col-md-8 col-md-offset-2 alert-danger text-center space">
+	            			<span id="livreur-create-error-message">remplir tout les champs</span>
+	            		</div>
+					</div>
+					<div id="livreur-create-success">
+					    <div class="col-md-8 col-md-offset-2 alert-success text-center space">
+	            			<span id="livreur-create-success-message">le compte a ete creee</span>
+	            		</div>
+	        		</div>
+			    </div>
+		    </div>
+		</div>
+
+		<div id="listLivreurs" class="col-md-8 col-md-offset-2">
+		    <div class="login-content opa">
+		    	  <div>
+		        	<div class="authentication-header">
+		        		<h3>Livreurs</h3>
+		        	</div>
+		    	</div>
+		    	<div class="table-responsive">
+		            <table class="table">
+			            <thead>
+							<tr>
+								<th>courriel</th>
+								<th>prenom</th>
+								<th>nom de famille</th>
+							</tr>
+		            	</thead>
+		            	<tbody id="arrayLivreurs">
+		            	</tbody>
+		            </table>
+        		</div>
+		    </div>
+		</div>
+
+		<div id="updateLivreur" class="col-md-4 col-md-offset-4">
+		    <div class="login-content opa">
+		    	  <div>
+		        	<div class="authentication-header">
+		        		<h3>Modifier un livreur</h3>
+		        	</div>
+		    	</div>
+		    	<span>
+					<span>courriel: <label id="updateLivMail"></label></span> </br>
+					<span>prenom: <label id="updateLivFirstname"></label></span></br>
+					<span>nom de famille: <label id="updateLivLastname"></label></span></br>
+				 	<div class="space">
+				 		<input id="updateLivPassword" type="password" name="password" max="20" class="col-md-8" placeholder="mot de passe">
+				 		<a id="livreur_mod-password-action" href="#" class="a-link">Modifier</a>
+				 	</div>
+					<div class="space">
+						<select id="option_livreur-update" class="col-md-8 option"></select>
+						<a id="livreur_mod-livreur-action" href="#" class="a-link ">Modifier</a>
+					</div>
+		    	</span>
+
+		     	 <div class="clearfix">
+					<div id="livreur-update-error">
+					    <div class="col-md-8 col-md-offset-2 alert-danger text-center space">
+	            			<span id="livreur-update-error-message">remplir tout les champs</span>
+	            		</div>
+					</div>
+					<div id="livreur-update-success">
+					    <div class="col-md-8 col-md-offset-2 alert-success text-center space">
+	            			<span id="livreur-update-success-message">le livreur a ete modifier</span>
+	            		</div>
+	        		</div>
+			    </div>
+		    </div>
+		</div>	
 
 		<div id="addRestaurateur" class="col-md-4 col-md-offset-4">
 		    <div class="login-content opa">

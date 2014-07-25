@@ -8,6 +8,7 @@
 	{
 		public $id;
 		public $restaurateur_id;
+		public $livreur_id;
 		public $name;
 		public $address;
 
@@ -21,6 +22,11 @@
 		public function setRestaurateurId($restaurateur_id) 
 	    {
         	return $this->restaurateur_id = $restaurateur_id;
+	    }
+
+	    public function setLivreurId($livreur_id) 
+	    {
+        	return $this->livreur_id = $livreur_id;
 	    }
 
 	   	public function setName($name) 
@@ -194,6 +200,57 @@
 			$menu->setName($name);
 			return $menu->save();
 		}
+
+		public static function getRestaurantsForLivreurId($id)
+		{
+	    	$mysqli = Connection::getConnection();
+			$livreurArray = array();
+			$query = "SELECT * FROM restaurants WHERE livreur_id='$id'";
+			$result = $mysqli->query($query);
+			$row = $result->fetch_assoc();
+
+			$livreurId = -1;
+			if($row == true)
+			{	
+				$livreurId = $row['id'];
+			}	
+	    	Connection::disconnect();
+	    	return $restaurantId;
+		}
+
+		public static function getLivreurRestaurateurId($id)
+		{
+	    	$mysqli = Connection::getConnection();
+			$query = "SELECT * FROM restaurants WHERE livreur_id='$id'";
+			$result = $mysqli->query($query);
+			$row = $result->fetch_assoc();
+			$restaurant = new Restaurant();
+				$restaurant->setId($row['id']); 
+				$restaurant->setRestaurateurId($row['livreur_id']);
+				$restaurant->setName($row['name']);
+	    	Connection::disconnect();
+	    	return $restaurant;
+		}
+
+	    public static function getLivreursNoRestaurateur()
+	    {
+	    	$mysqli = Connection::getConnection();
+			$livreurArray = array();
+			$query = "SELECT * FROM restaurants WHERE livreur_id=-1";
+			$result = $mysqli->query($query);
+			while ($row = $result->fetch_assoc()) 
+			{
+		    	$restaurant = new Restaurant();
+				$restaurant->setId($row['id']); 
+				$restaurant->setLivreurId($row['livreur_id']);
+				$restaurant->setName($row['name']);
+				$restaurant->setAddress($restaurant->getMainAddress());
+
+				array_push($livreurArray,$restaurant);
+			}
+	    	Connection::disconnect();
+	    	return $restaurantArray;	    	
+	    }
 
 	    public function save() 
 	    {

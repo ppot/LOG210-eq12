@@ -1,8 +1,8 @@
 <?php
 /**
-* Dilivery
+* Livreur
 */
-class Delivery
+class Livreur
 {
 	
 	function __construct() {}

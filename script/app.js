@@ -80,6 +80,9 @@ app = (function(){
 		    		$('#addRestaurant').hide();
 		    		$('#listRestaurants').hide();
 		    		$('#updateRestaurant').hide();	
+		    		$('#addLivreur').hide();
+		    		$('#listLivreurs').hide();
+		    		$('#updateLivreur').hide();
 
 		    		$('#restaurateur-create-success').hide();
 		    		$('#restaurateur-create-error').hide();	    		
@@ -92,7 +95,13 @@ app = (function(){
 					$('#restaurant-update-warning').hide();
 					$('#restaurant-create-warning').hide();	
 					$('#restaurateur-update-warning').hide();	
-					$('#restaurateur-create-warning').hide();				
+					$('#restaurateur-create-warning').hide();
+					$('#livreur-update-warning').hide();	
+					$('#livreur-create-warning').hide();
+					$('#livreur-create-success').hide();
+		    		$('#livreur-create-error').hide();	  
+		    		$('#livreur-update-success').hide();
+					$('#livreur-update-error').hide();  				
 				}
 
 				function addRestaurateur(){
@@ -205,6 +214,19 @@ app = (function(){
 					$('html, body').animate({scrollTop:$('#updateRestaurant').position().top}, 'slow');
 				}
 
+				function livreurs(){
+					hide();
+					app.entrepreneur.getLivreurs();
+					$('#listLivreurs').show();
+				}				
+
+				function addLivreur(){
+					hide();
+					$('#addLivreur').show();
+				}
+
+				
+
 		    	return{
 		    		init:init,
 		    		addRestaurateur:addRestaurateur,
@@ -213,6 +235,8 @@ app = (function(){
 		    		addRestaurant:addRestaurant,
 		    		restaurants:restaurants,
 		    		updateRestaurant:updateRestaurant,
+		    		addLivreur:addLivreur,
+		    		livreurs:livreurs,
 			    }
 			})();
 
@@ -288,6 +312,7 @@ app = (function(){
 	var entrepreneur = (function(){
 		var restaurateur = new Restaurateur();
 		var restaurant = new Restaurant();
+		var livreur = new Livreur();
 
     	function init(){}
 
@@ -303,6 +328,23 @@ app = (function(){
     			$('#mail').val(),
     			$("#option_restaurant option:selected").val()
     		);
+    	}
+
+    	function createLivreur(){
+			$('#livreur-create-warning').hide();
+			$('#livreur-create-success').hide();
+			$('#livreur-create-error').hide();	
+
+    		livreur.create(
+    			$('#livFirstname').val(),
+    			$('#livLastname').val(),
+    			$('#livPassword').val(),
+    			$('#livMail').val()
+    		);
+    	}
+
+    	function delLivreur(id){
+    		livreur.del(id);
     	}
 
     	function delRestautateur(id){
@@ -342,6 +384,23 @@ app = (function(){
 			});
     	}
 
+    	function getLivreurs(){
+    		$.ajax({
+			    type: "GET",
+			    url: app.config.getContext()+"action/api.php",
+			    data:{
+			    	action: 'getLivreurs',
+				},
+			    dataType: "html",
+			    success: function(result){
+			    	$("#arrayLivreurs").html('');
+					$.each($.parseJSON(result), function(idx, obj) {
+			    		$("#arrayLivreurs").append('<tr id="livreur'+obj.id+'"><td>'+obj.livMail+'</td><td>'+obj.livFirstname+'</td><td>'+obj.livLastname+'</td><td> <a href="javascript:app.entrepreneur.getLivreur('+obj.id+')" class="a-link">Modifier</a> <a href="javascript:app.entrepreneur.delLivreur('+obj.id+')" class="a-link">delete</a></td></tr>');
+					});
+			    }        
+			});
+    	}
+
     	function getRestaurants(){
     		$.ajax({
 			    type: "GET",
@@ -372,14 +431,19 @@ app = (function(){
 
     	function updateRestaurateurRestaurant(id){
     		$('#restaurateur-update-success').hide();
-			$('#restaurateur-update-warning').hide();			    		
-    		$('#restaurateur-update-error').hide();
-
-    		restaurateur.updateRestaurant(
-    			id,
-    			$("#option_restaurant-update option:selected").val()
-    			);
+			$('#restaurateur-update-warning').hide();
     	} 
+
+    	function updateLivreurPassword(id){
+      		$('#livreur-update-success').hide();
+			$('#livreur-update-warning').hide();			    		
+    		$('#livreur-update-error').hide();
+    		  		
+    		livreur.updatePassword(
+    			id,			
+    			$('#updatePassword').val()
+    		);
+    	}
 
 		function updateRestaurant(id){
     		$('#restaurant-update-success').hide();
@@ -397,6 +461,7 @@ app = (function(){
     		); 		
     	}
 
+
     	function delRestaurant(id){
     		restaurant.del(id);
     	}
@@ -406,6 +471,10 @@ app = (function(){
     		app.general.entrepreneur.updateRestaurateur();
     		restaurateur.get(id);
     		restaurateur.getRestaurant(id);
+    	}
+
+    	function getLivreur(id){
+    	   	livreur.get(id);
     	}
 
     	function getRestaurant(id){
@@ -427,6 +496,11 @@ app = (function(){
 			updateRestaurant:updateRestaurant,
 			delRestautateur:delRestautateur,
 			delRestaurant:delRestaurant,
+			createLivreur:createLivreur,
+			getLivreurs:getLivreurs,
+			getLivreur:getLivreur,
+			updateLivreurPassword:updateLivreurPassword,
+			delLivreur:delLivreur,
 	    }
 	})();
 

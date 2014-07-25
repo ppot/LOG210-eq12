@@ -82,6 +82,24 @@
 			case 'getRestaurateurRestaurant':
 				Entrepreneur::getRestaurateurRestaurant();
 				break;
+				
+//------	//Livreur
+			case 'getLivreurs':
+				Entrepreneur::getLivreurs();
+				break;
+			case 'getLivreur':
+				Entrepreneur::getLivreur();
+				break;
+			case 'updateLivreurPassword':
+				Entrepreneur::updateLivreurPassword();
+				break;	
+			case 'createLivreur':
+				Entrepreneur::createLivreur();
+				break;
+			case 'delLivreur':
+				Entrepreneur::delLivreur();
+				break;
+			
 
 //------	//restaurant
 			case 'getRestaurants':
