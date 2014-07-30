@@ -1,26 +1,30 @@
 <?php
-	require_once('../controllers/UserIndexController.php');
-	require_once('../controllers/EntrepreneurController.php');
-	require_once('../controllers/RestaurateurController.php');
+	require_once('../controller/Users.php');
+	require_once('../controller/Entrepreneur.php');
+	require_once('../controller/Restaurateur.php');
+	require_once('../controller/Orders.php');	
+	require_once('../controller/Livreur.php');
 
 	if(isset($_GET['action'])) {
 		$action = $_GET['action'];
 		switch ($action) {
-		//connection
+//--	//connection
 			case 'oauth':
 				Users::oauth();
 				break;
-
-			case 'oauthOut':
+			case 'out':
 				Users::out();
 				break;
-		//users
+//--	//users
 			case 'register':
 				Users::register();
+				break;	
+			case 'getUser':
+				Users::getUser();		
 				break;
-
-			case 'user_infos':
-				Users::userInfos();
+				
+			case 'mainAddress':
+				Users::address();
 				break;
 
 			case 'updateUserAddress':
@@ -38,81 +42,136 @@
 			case 'current':
 				Users::getUser();
 				break;
-		//entrepreneur restaurateur		
-			case 'getRestaurateur':
-				EntrepreneurController::getRestaurateur();
+
+			case 'getDeliveryAddress':
+				Users::getDeliveryAddress();
 				break;
-			case 'getRestaurateurRestaurant':
-				EntrepreneurController::getRestaurateurRestaurant();
+
+			case 'getAddress':
+				Users::getAddress();
+				break;		
+
+			case 'newDeliveryAddress':
+				Users::newDeliveryAddress();
 				break;
+
+			case 'changeDeliveryAddress':
+				Users::changeDeliveryAddress();
+				break;					
+
+//--	//entrepreneur
+
+//------	//restaurateur
 			case 'getRestaurateurs':
-				EntrepreneurController::getRestaurateurs();
-				break;				
-			case 'createRestaurateur':
-				EntrepreneurController::createRestaurateur();
+				Entrepreneur::getRestaurateurs();
+				break;
+			case 'getRestaurateur':
+				Entrepreneur::getRestaurateur();
 				break;
 			case 'updateRestaurateurPassword':
-				EntrepreneurController::updateRestaurateurPassword();
-				break;
+				Entrepreneur::updateRestaurateurPassword();
+				break;	
 			case 'updateRestaurateurRestaurant':
-				EntrepreneurController::updateRestaurateurRestaurant();
-				break;				
+				Entrepreneur::updateRestaurateurRestaurant();
+				break;
+			case 'createRestaurateur':
+				Entrepreneur::createRestaurateur();
+				break;
 			case 'delRestaurateur':
-				EntrepreneurController::delRestaurateur();
+				Entrepreneur::delRestaurateur();
 				break;
-		//entrepreneur restaurant
-			case 'getRestaurant':
-				EntrepreneurController::getRestaurant();
-				break;							
+			case 'getRestaurateurRestaurant':
+				Entrepreneur::getRestaurateurRestaurant();
+				break;
+				
+//------	//Livreur
+			case 'getLivreurs':
+				Entrepreneur::getLivreurs();
+				break;
+			case 'getLivreur':
+				Entrepreneur::getLivreur();
+				break;
+			case 'updateLivreurPassword':
+				Entrepreneur::updateLivreurPassword();
+				break;	
+			case 'createLivreur':
+				Entrepreneur::createLivreur();
+				break;
+			case 'delLivreur':
+				Entrepreneur::delLivreur();
+				break;
+			case 'getAllOrders':
+				Livreur::getAllOrders();
+				break;
+			case 'changeStateDelivered':
+				Order::changeStateDelivered();
+				break;
+			
+
+//------	//restaurant
 			case 'getRestaurants':
-				EntrepreneurController::getRestaurants();
-				break;				
-			case 'createRestaurant':
-				EntrepreneurController::createRestaurant();
-				break;
+				Entrepreneur::getRestaurants();
+				break;	
+			case 'getRestaurant':
+				Entrepreneur::getRestaurant();
+				break;		
 			case 'updateRestaurant':
-				EntrepreneurController::updateRestaurant();
-				break;	
-			case 'delRestaurant':
-				EntrepreneurController::delRestaurant();
-				break;	
-			case 'getRestaurantsNoRestaurateur':
-				EntrepreneurController::getRestaurantsNoRestaurateur();
-				break;	
-			case 'getRestaurateursNotInRestaurants':
-				EntrepreneurController::getRestaurateursNotInRestaurants();
+				Entrepreneur::updateRestaurant();
 				break;
-			//restaurateur menu
+			case 'getRestaurantsNoRestaurateur':
+				Entrepreneur::getRestaurantsNoRestaurateur();
+				break;
+			case 'getRestaurateursNotInRestaurants':
+				Entrepreneur::getRestaurateursNotInRestaurants();
+				break;
+			case 'createRestaurant':
+				Entrepreneur::createRestaurant();
+				break;
+			case 'delRestaurant':
+				Entrepreneur::delRestaurant();
+				break;
+
+//--	//restaurateur
 			case 'getRestaurantRestaurateur':
-				RestaurateurController::getRestaurant();
+				Restaurateur::getRestaurant();
 				break;	
 			case 'getMenu':
-				RestaurateurController::getMenu();
+				Restaurateur::getMenu();
 				break;				
 			case 'getMenus':
-				RestaurateurController::getMenus();
+				Restaurateur::getMenus();
 				break;
 			case 'addMenu':
-				RestaurateurController::addMenu();
+				Restaurateur::addMenu();
 				break;	
 			case 'updateMenu':
-			RestaurateurController::updateMenu();
+				Restaurateur::updateMenu();
 				break;	
 			case 'createPlat':
-				RestaurateurController::createPlat();
+				Restaurateur::createPlat();
 				break;		
 			case 'getPlats':
-				RestaurateurController::getPlats();
+				Restaurateur::getPlats();
 				break;
 			case 'getPlat':
-				RestaurateurController::getPlat();
+				Restaurateur::getPlat();
 				break;		
 			case 'updatePlat':
-				RestaurateurController::updatePlat();
+				Restaurateur::updatePlat();
 				break;	
 			case 'delPlat':
-				RestaurateurController::delPlat();
-				break;							
+				Restaurateur::delPlat();
+				break;	
+			case 'getRestaurantMenus':
+				Restaurateur::getRestaurantMenus();
+				break;		
+			case 'createOrder':
+				Orders::createOrder();
+				break;		
+			case 'createOrderItems':
+				Orders::createOrderItems();
+				break;
+
 			default:
 				# code...
 				break;

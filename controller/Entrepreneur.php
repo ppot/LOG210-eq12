@@ -1,13 +1,13 @@
 <?php
+	require_once('../action/db/Connection.php');
 	require_once('../models/User.php');
 	require_once('../models/Restaurant.php');
 /**
 * EntrepreneurController
 */
-class EntrepreneurController
+class Entrepreneur
 {
 	function __construct() {}
-
 
 // Restaurateur
 	public static function getRestaurateur()
@@ -69,7 +69,6 @@ class EntrepreneurController
 					$restaurant->setRestaurateurId($user->id);
 					$restaurant->save();
 				}
-
 				echo json_encode(1);
 			}
 		}
@@ -80,8 +79,7 @@ class EntrepreneurController
 		$id = $_GET['id'];
 		$password = $_GET['password'];
 
-		$update = (empty($password));
-		if($update) 
+		if(empty($password)) 
 		{
 			echo json_encode(0);
 		}
@@ -101,9 +99,14 @@ class EntrepreneurController
 		if($restaurantId == -1)
 		{
 			$restaurant = Restaurant::getRestaurantRestaurateurId($id);
-			$restaurant ->setRestaurateurId(-1);
-			$result = $restaurant->save();
-			echo json_encode($result);
+			if($restaurant->id != null){
+				$restaurant ->setRestaurateurId(-1);
+				$result = $restaurant->save();
+				echo json_encode($result);	
+			}
+			else{
+				echo json_encode(1);
+			}
 		}
 		else
 		{
@@ -123,7 +126,7 @@ class EntrepreneurController
 		$result= User::delete($id);	
 		echo json_encode($result);
 	}
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Restaurant
 	public static function getRestaurant()
 	{
@@ -171,7 +174,6 @@ class EntrepreneurController
 			$restaurant = new Restaurant();
 			$restaurant->setName($restaurantName);
 			$restaurant->setRestaurateurId($restaurateur_id);
-
 			$restaurant->save();
 
 			$restaurant->newAddress($addresse, $city, $phone, $postalcode);
@@ -214,4 +216,87 @@ class EntrepreneurController
 		$result= Restaurant::delete($id);
 		echo json_encode($result);	
 	}
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// Livreur
+	public static function getLivreur()
+	{
+		$id = $_GET['id'];
+		$user = User::getUserById($id);
+		echo json_encode($user);
+	}
+
+	
+
+	public static function getLivreurs()
+	{
+		$users = User::getUsers('livreur');
+		echo json_encode($users);
+	}
+
+	public static function createLivreur()
+	{
+		$livPassword = $_GET['password'];
+		$livFirstname = $_GET['firstname'];
+		$livLastname = $_GET['lastname'];
+		$livMail = $_GET['mail'];
+
+
+		$user = (empty($livMail) || empty($livPassword) || empty($livFirstname) || empty($livLastname));
+
+		if($user) 
+		{
+			echo json_encode(0);
+		}
+		else 
+		{
+			$user = User::userExist($livMail);
+
+			if($user != null)
+			{
+				echo json_encode(2);
+			}
+			else
+			{
+				$user = new User();
+				$user->setPassword($livPassword);
+				$user->setFirstname($livFirstname);
+				$user->setLastname($livLastname);
+				$user->setType('livreur'); 
+				$user->setMail($livMail);
+				$user->save();
+
+				echo json_encode(1);
+			}
+		}
+	}
+
+	public static function updateLivreurPassword()
+	{
+		$id = $_GET['id'];
+		$livPassword = $_GET['password'];
+
+		if(empty($livPassword)) 
+		{
+			echo json_encode(0);
+		}
+		else 
+		{
+			$user=User::getUserById($id);
+			$user->changePassword($livPassword);
+			$userResult=$user->save();
+			echo json_encode(1);
+		}
+	}
+
+
+	public static function delLivreur()
+	{
+		$id = $_GET['id'];
+		$result= User::delete($id);	
+		echo json_encode($result);
+	}
+	
 }
+?>

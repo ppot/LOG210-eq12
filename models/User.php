@@ -8,7 +8,7 @@
 	{
 
 		public $id;
-		public $password;
+		private $password;
 		public $firstname;
 		public $lastname;
 		public $type;
@@ -16,31 +16,6 @@
 		public $birthdate;
 
 		public function __construct() {}
-
-		// // get methods
-		// public function getId() {
-  //       	return $this->id;
-	 //    }
-
-	 //    public function getFirstname() {
-	 //        return $this->firstname;
-	 //    }
-
-	 //    public function getLastname() {
-	 //        return $this->lastname;
-	 //    }
-
-	 //    public function getType() {
-	 //        return $this->type;
-	 //    }
-
-		// public function getMail() {
-	 //    	return $this->mail;
-	 //    }
-
-		// public function getBirthdate() {
-	 //    	return $this->birthdate;
-	 //    }	 
 	       
 	    //set methods
 	    public function setId($id) 
@@ -99,17 +74,26 @@
 
 			$sql_query = "SELECT * FROM Users WHERE mail='$mail' AND password='$password'";
 			$result = $mysqli->query($sql_query);
-			$row = $result->fetch_array(MYSQLI_ASSOC);
+			$row = $result->fetch_assoc();
 			if(!empty($mail) && !empty($password))
 			{
 				$_SESSION['user'] = $row['mail'];
 				$_SESSION['type'] = $row['type'];
 				$_SESSION['id'] = $row['id'];
-				return 1;
+
+				$user = new User();
+				$user->setId($row['id']); 
+				$user->setPassword($row['password']);
+				$user->setFirstname($row['firstname']);
+				$user->setLastname($row['lastname']);
+				$user->setType($row['type']); 
+				$user->setMail($row['mail']);
+				$user->setBirthdate($row['birthdate']);
+				return $user;
 			}
 			else
 			{
-				return 0;
+				return null;
 			}
 
 			Connection::disconnect();
@@ -121,7 +105,7 @@
 
 			$sql_query = "SELECT * FROM Users WHERE id='$id'";
 			$result = $mysqli->query($sql_query);
-			$row = $result->fetch_array(MYSQLI_ASSOC);
+			$row = $result->fetch_assoc();
 			$user = new User();
 			$user->setId($row['id']); 
 			$user->setPassword($row['password']);
@@ -204,7 +188,7 @@
 		public function getMainAddress() 
 		{
 			$mysqli = Connection::getConnection();
-			$query = "SELECT * FROM address as a INNER JOIN users as u ON a.adresseble_id=u.id WHERE adresseble_id = $this->id AND adresseble_type = '$this->type' AND main='1'";
+			$query = "SELECT * FROM address WHERE adresseble_id = '$this->id' AND adresseble_type = '$this->type' AND main='1'";
 			$result = $mysqli->query($query);
 			$row = $result->fetch_assoc();
 			$address = new Address();
@@ -216,6 +200,27 @@
 			$address->setPhone($row['phone']);
 			$address->setPostalcode($row['postalcode']); 
 			$address->setMain($row['main']);
+			$address->setDelivery($row['delivery']);
+			Connection::disconnect();
+			return $address;
+		}
+
+		public function getDeliveryAddress() 
+		{
+			$mysqli = Connection::getConnection();
+			$query = "SELECT * FROM address WHERE adresseble_id = '$this->id' AND adresseble_type = '$this->type' AND delivery='1'";
+			$result = $mysqli->query($query);
+			$row = $result->fetch_assoc();
+			$address = new Address();
+			$address->setId($row['id']); 
+			$address->setAddressebleId($row['adresseble_id']);
+			$address->setType($row['adresseble_type']);
+			$address->setAddress($row['address']);
+			$address->setCity($row['city']); 
+			$address->setPhone($row['phone']);
+			$address->setPostalcode($row['postalcode']); 
+			$address->setMain($row['main']);
+			$address->setDelivery($row['delivery']);
 			Connection::disconnect();
 			return $address;
 		}
@@ -224,7 +229,7 @@
 		{
 			if($this->type=="client") 
 			{
-				Address::newAddress($this->id, $this->type, $address, $city, $phone, $postalcode, '1');
+				Address::newAddress($this->id, $this->type, $address, $city, $phone, $postalcode, '1','0');
 			}
 		}
 
@@ -236,6 +241,48 @@
 			$address->setPhone($phone);
 			$address->setPostalcode($postalcode);
 			$address->save();
+		}
+
+		public function newDeliveryAddress($address,$city,$phone,$postalcode)
+		{
+			if($this->type=="client") 
+			{
+				Address::newAddress($this->id, $this->type, $address, $city, $phone, $postalcode, '0','1');
+			}			
+		}
+
+		public function changeDelivery($id)
+		{
+			$address = Address::getAddressById($id);
+			$address->setDelivery('1');
+			$address->save();
+			return $address;
+		}
+
+		public function getAddress()
+		{
+	    	$mysqli = Connection::getConnection();
+			$addressArray = array();
+			$query = "SELECT * FROM address WHERE adresseble_id = '$this->id' AND adresseble_type = '$this->type'";
+			
+			$result = $mysqli->query($query);
+			while ($row = $result->fetch_assoc()) 
+			{
+				$address = new Address();
+				$address->setId($row['id']); 
+				$address->setAddressebleId($row['adresseble_id']);
+				$address->setType($row['adresseble_type']);
+				$address->setAddress($row['address']);
+				$address->setCity($row['city']); 
+				$address->setPhone($row['phone']);
+				$address->setPostalcode($row['postalcode']); 
+				$address->setMain($row['main']);
+				$address->setDelivery($row['delivery']);
+
+				array_push($addressArray,$address);
+			}
+	    	Connection::disconnect();
+	    	return $addressArray;			
 		}
 
 		public static function delete($id)
@@ -255,13 +302,13 @@
 				$query = "INSERT INTO users (password, firstname, lastname, type, mail, birthdate) VALUES ('$this->password', '$this->firstname', '$this->lastname', '$this->type', '$this->mail', '$this->birthdate')";
 				$result = $mysqli->query($query);
 				$this->id=$mysqli->insert_id;
-				return $result;
+				return $this;
 			}
 			else 
 			{
 				$query = "UPDATE users SET password='$this->password' WHERE id='$this->id'";
 				$result = $mysqli->query($query);
-				return $result;
+				return $this;
 			}
 			Connection::disconnect();
 		}

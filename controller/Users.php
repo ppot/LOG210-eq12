@@ -9,7 +9,7 @@
 		public static function  getUser()
 		{
 			$user = User::getCurrentUser();
-			 echo json_encode($user->getMainAddress());
+			 echo json_encode($user);
 		}
         
        	public static function oauth()
@@ -33,10 +33,8 @@
 			$password = $_GET['password'];
 			$firstname = $_GET['firstname'];
 			$lastname = $_GET['lastname'];
-
 			$mail = $_GET['mail'];
 			$birthdate = $_GET['birthdate'];
-
 			$addresse = $_GET['address'];
 			$city = $_GET['city'];
 			$phone = $_GET['phone'];
@@ -70,14 +68,13 @@
 					$user->save();
 
 					$user->newAddress($addresse, $city, $phone, $postalcode);
-
 					echo json_encode(1);
 				}
 
 			}
 		}
 
-		public static function userInfos() 
+		public static function address() 
 		{
 			$user = User::getCurrentUser();
 			$address = $user->getMainAddress();
@@ -121,10 +118,53 @@
 			else 
 			{
 				$user=User::getCurrentUser();
-				$userResult=$user->save();
 				$addressResult = $user->updateAddress($address, $city, $phone, $postalcode);
 				echo json_encode(1);
 			}
+		}
+
+		public static function newDeliveryAddress()
+		{
+			$addr = $_GET['address'];
+			$city = $_GET['city'];
+			$phone =  $_GET['phone'];
+			$postalcode =$_GET['postalcode'];
+			$user=User::getCurrentUser();
+
+			$address = $user->getDeliveryAddress();
+			$address->setDelivery('0');
+			$address->save();
+			
+			$user->newDeliveryAddress($addr,$city,$phone,$postalcode);
+
+			$addresse = $user->getDeliveryAddress();
+			echo json_encode($addresse);
+		}
+
+		public static function changeDeliveryAddress()
+		{
+			$id = $_GET['id'];
+
+			$user = User::getCurrentUser();
+			$address = $user->getDeliveryAddress();
+			$address->setDelivery('0');
+			$address->save();
+			$add = $user->changeDelivery($id);
+			echo json_encode($add);
+		}
+
+		public static function getDeliveryAddress()
+		{
+			$user = User::getCurrentUser();
+			$address = $user->getDeliveryAddress();
+			echo json_encode($address);
+		}
+
+		public static function getAddress()
+		{
+			$user = User::getCurrentUser();
+			$address = $user->getAddress();
+			echo json_encode($address);
 		}
 
     }

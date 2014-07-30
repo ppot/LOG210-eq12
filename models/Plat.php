@@ -41,17 +41,16 @@ class Plat
 	public static function getById($id)
 	{
     	$mysqli = Connection::getConnection();
-    	$query = "SELECT * FROM plats WHERE id = '$id'";
-    	$result = $mysqli->query($query);
-    	$row = $result->fetch_array(MYSQLI_ASSOC);
-
-    	$plat = new Plat();
-    	$plat->setId($row['id']);
-    	$plat->setDescription($row['description']);
-    	$plat->setName($row['name']);
-    	$plat->setPrice($row['price']);
-    	$plat->setMenuId($row['menu_id']);
-
+		$restaurantArray = array();
+		$query = "SELECT * FROM plats WHERE id='$id'";
+		$result = $mysqli->query($query);
+		$row = $result->fetch_assoc();
+	    	$plat = new Plat();
+			$plat->setId($row['id']); 
+			$plat->setMenuId($row['menu_id']);
+			$plat->setName($row['name']);
+			$plat->setPrice($row['price']);
+			$plat->setDescription($row['description']);
     	Connection::disconnect();
     	return $plat;
 	}
@@ -59,8 +58,8 @@ class Plat
 	{
     	$mysqli = Connection::getConnection();
     	$query = "DELETE FROM plats WHERE id='$this->id'";
-    	$result = $mysqli->query($query);
-	    Connection::disconnect();
+		$result = $mysqli->query($query);
+		Connection::disconnect();
 		return $this;
 	}
 
@@ -69,17 +68,19 @@ class Plat
     	$mysqli = Connection::getConnection();
     	if(empty($this->id)) 
 		{
-	    	$query = "INSERT INTO plats (description, name, price, menu_id) VALUES ('$this->description', '$this->name', '$this->price', '$this->menu_id')";
+	    	$query = "INSERT INTO plats (menu_id,name,price,description) VALUES ('$this->menu_id','$this->name','$this->price','$this->description')";
 			$result = $mysqli->query($query);
 			$this->id=$mysqli->insert_id;
 			return $this;
 		}
 		else 
 		{
-			$query = "UPDATE plats SET description = '$this->description', name = '$this->name', price = '$this->price', menu_id = '$this->menu_id' WHERE id = '$this->id'";
+			$query = "UPDATE plats SET name='$this->name',price='$this->price',description='$this->description' WHERE id='$this->id'";
 			$result = $mysqli->query($query);
 			return $this;
 		}
 		Connection::disconnect();
 	}
 }
+
+?>
