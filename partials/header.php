@@ -14,7 +14,7 @@
     <link href="http://localhost:8888/210/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="http://localhost:8888/210/css/main.css" rel="stylesheet">
     <script src="http://localhost:8888/210/script/jquery.js"></script>
-
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
   <?php
     require_once('requireJS.php');
   ?>
@@ -80,6 +80,12 @@
                 {
                   ?>
                     <li><a href="/210/views/restaurateur.php">restaurateur</a></li>
+                  <?php
+                }
+                if ($type =="livreur") 
+                {
+                  ?>
+                    <li><a href="/210/views/livraison.php">livraisons</a></li>
                   <?php
                 }
               }

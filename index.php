@@ -125,7 +125,16 @@
 							<input id="n_city" type="text" name="city" max="50" class="col-md-10 space"  placeholder="Ville">
 							<input id="n_postalcode" type="text" name="potalCode" max="6" class="col-md-10 space"  placeholder="Code postal">
 							<input id="n_phone" type="text" name="telephone" max="10" class="col-md-10 space"  placeholder="Téléphone">
-    					<a class="a-link"href="javascript:app.order.user_new_deliveryAddress()">ajouter</a>
+				            <div class="clearfix">
+				            	<div class="" id="newAddress-error">
+				            		<div class="col-md-12 alert-danger text-center space">
+				            			<span id="newAddress-error-message">remplir tout les champs</span>
+				            		</div>
+				                </div>
+				            	<div class="">
+			    					<a class="a-link"href="javascript:app.order.user_new_deliveryAddress()">ajouter</a>
+			            		</div>
+				   			</div>				
 						</span>
 					</div>
     			</div>

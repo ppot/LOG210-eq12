@@ -46,6 +46,10 @@
 				Users::getDeliveryAddress();
 				break;
 
+			case 'getDeliveryAddressByUserId':
+				Users::getDeliveryAddressByUserId();
+				break;				
+
 			case 'getAddress':
 				Users::getAddress();
 				break;		
@@ -81,6 +85,23 @@
 				break;
 			case 'getRestaurateurRestaurant':
 				Entrepreneur::getRestaurateurRestaurant();
+				break;
+
+//------	//Livreur
+			case 'getLivreurs':
+				Entrepreneur::getLivreurs();
+				break;
+			case 'getLivreur':
+				Entrepreneur::getLivreur();
+				break;
+			case 'updateLivreurPassword':
+				Entrepreneur::updateLivreurPassword();
+				break;	
+			case 'createLivreur':
+				Entrepreneur::createLivreur();
+				break;
+			case 'delLivreur':
+				Entrepreneur::delLivreur();
 				break;
 
 //------	//restaurant
@@ -146,6 +167,20 @@
 				  $_SESSION['cart'] = $_GET['cart'];
 				  $_SESSION['command'] = $_GET['command'];
 				}
+				break;
+				
+//--	//orders
+			case 'getOrder':
+				Orders::getOrder();
+				break;
+			case 'getOrderItems':
+				Orders::getOrderItems();
+				break;
+			case 'orderReady':
+				Orders::orderReady();
+				break;
+			case 'orderDeliver':
+				Orders::orderDeliver();
 				break;
 			default:
 				# code...

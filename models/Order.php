@@ -4,8 +4,8 @@
 * Customer Order
 *  array(
 *    1 => "paid",
-*    2 => "preparation",
-*    3 => "ready"
+*    2 => "ready",
+*    3 => "deliver"
 */
 class Order
 {
@@ -83,6 +83,7 @@ class Order
 		$order->setClientId($row['client_id']);
 		$order->setAddressId($row['address_id']);
 		$order->setRestaurantId($row['restaurant_id']);
+		$order->setLivreurId($row['livreur_id']);
 		$order->setNoConfirmation($row['no_confirmation']);
 		$order->setDate($row['date']);
 		$order->setTime($row['time']);
@@ -101,6 +102,38 @@ class Order
 		$item->save();
 	}
 
+	public static function getOrderItems($order_id)
+	{
+		$mysqli = Connection::getConnection();
+		$orderItems = array();
+		$sql_query = "SELECT * FROM order_items WHERE order_id='$order_id'";
+		$result = $mysqli->query($sql_query);
+		while ($row = $result->fetch_assoc()) 
+		{
+			$orderitem = new OrderItems();
+			$orderitem->setId($row['id']); 
+			$orderitem->setOrderId($row['order_id']); 
+			$orderitem->setPlatId($row['plat_id']); 
+			$orderitem->setQuantity($row['quantity']); 
+
+			array_push($orderItems,$orderitem);
+		}
+		Connection::disconnect();
+		return $orderItems;	
+	}
+
+	public function ready()
+	{
+		$this->setState(2);
+		$this->save();
+	}
+
+	public function deliver()
+	{
+		$this->setState(3);
+		$this->save();
+	}
+
 	public function save()
 	{
 		$mysqli = Connection::getConnection();
@@ -109,13 +142,13 @@ class Order
 			$query = "INSERT INTO orders (client_id, address_id, restaurant_id, livreur_id, no_confirmation, date, time, state, total) VALUES ('$this->client_id', '$this->address_id', '$this->restaurant_id', '$this->livreur_id', '$this->no_confirmation', '$this->date', '$this->time', '$this->state', '$this->total')";
 			$result = $mysqli->query($query);
 			$this->id=$mysqli->insert_id;
-			return $result;
+			return $this;
 		}
 		else 
 		{
-			$query = "UPDATE orders SET client_id='$this->client_id', address_id='$this->address_id',restaurant_id='$this->restaurant_id',livreur_id='$this->livreur_id',no_confirmation='$this->no_confirmation',date='$this->date',time='$this->time',state='$this->state',total_price='$this->total'  WHERE id='$this->id'";
+			$query = "UPDATE orders SET client_id='$this->client_id', address_id='$this->address_id',restaurant_id='$this->restaurant_id',livreur_id='$this->livreur_id',no_confirmation='$this->no_confirmation',date='$this->date',time='$this->time',state='$this->state',total='$this->total'  WHERE id='$this->id'";
 			$result = $mysqli->query($query);
-			return $result;
+			return $this;
 		}
 		Connection::disconnect();
 	}

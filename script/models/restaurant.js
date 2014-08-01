@@ -23,80 +23,162 @@ Restaurant.prototype.get = function(id) {
 };
 
 Restaurant.prototype.create = function(name,restaurateur_id,address,city,phone,postalcode) {
-      		$.ajax({
-			    type: "GET",
-			    url: app.config.getContext()+"action/api.php",
-			    data:{
-			    	action: 'createRestaurant',
-			    	name: name,
-			    	restaurateur_id:  restaurateur_id,
-			    	address: address,
-			    	city: city,
-			    	phone: phone,
-			    	postalcode: postalcode,
-				},
-			    dataType: "html",
-			    success: function(result){
-			    	response = $.parseJSON(result);
-			    	if(response === 1){
-			    		if(restaurateur_id == -1){
-							$('#restaurant-create-warning').show();	
-			    		}
-			    		else{
-							$('#restaurant-create-warning').hide();	
-			    			$('#restaurant-create-success').show();
-			    			$('#restaurant-create-error').hide();	
-			    		}
-    		     		$('#name').val('');
-				    	$('#address').val('');
-				    	$('#city').val('');		
-				    	$('#phone').val('');
-				    	$('#postalcode').val('');
-				    	$("#option_restaurateur").val(-1); 		    		
-			    	}
-			    	else{
-			    		$('#restaurant-create-success').hide();
-    					$('#restaurant-create-warning').hide();	
-			    		$('#restaurant-create-error').show();			    		
-			    	}
-			    }        
-			});  		
+	var reFirstname =/^[A-Za-z\s]{1,}[\.-]{0,1}[A-Za-z\s]{0,}$/;
+    var reMail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+	var rePhone =/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/;
+	var reAddress = /^([0-9]+)([A-Z])?,\s(?:(.*?)\s(?:APP|APT)\s(.*)|(.*))$/mgi;	
+	var rCity =/^[A-Za-z\s]{1,}[\-]{0,1}[A-Za-z\s]{0,}$/;
+	var rePostal = /(^[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ]\d[ABCEGHJKLMNPRSTVWXYZ]\d$)/;
+	
+ 	var validFirstname = reFirstname.test(name);
+	var validPhone = rePhone.test(phone);
+	var validAddress = reAddress.test(address);
+	var validCity = rCity.test(city);
+	var validPostal = rePostal.test(postalcode);
+
+
+	if(!validFirstname || !validPhone || !validAddress || !validCity || !validPostal){
+		$('#restaurant-update-error').show();
+		$('#restaurant-create-success').hide();
+		$('#restaurant-update-error-message').text(' ');
+		if(!validFirstname)
+		{
+			$('#restaurant-update-error-message').append('<span>name non conforme</span></br>');
+		}
+		if(!validPhone )
+		{
+			$('#restaurant-update-error-message').append('<span>phone non conforme</span></br>');
+		}
+		if(!validAddress)
+		{
+			$('#restaurant-update-error-message').append('<span>address non conforme</span></br>');
+		}
+		if(!validCity )
+		{
+			$('#restaurant-update-error-message').append('<span>city non conforme</span></br>');
+		}
+		if(!validPostal)
+		{
+			$('#restaurant-update-error-message').append('<span>postalcode non conforme</span></br>');
+		}
+	}
+	else{
+  		$.ajax({
+		    type: "GET",
+		    url: app.config.getContext()+"action/api.php",
+		    data:{
+		    	action: 'createRestaurant',
+		    	name: name,
+		    	restaurateur_id:  restaurateur_id,
+		    	address: address,
+		    	city: city,
+		    	phone: phone,
+		    	postalcode: postalcode,
+			},
+		    dataType: "html",
+		    success: function(result){
+		    	response = $.parseJSON(result);
+		    	if(response === 1){
+		    		if(restaurateur_id == -1){
+						$('#restaurant-create-warning').show();	
+		    		}
+		    		else{
+						$('#restaurant-create-warning').hide();	
+		    			$('#restaurant-create-success').show();
+		    			$('#restaurant-create-error').hide();	
+		    		}
+		     		$('#name').val('');
+			    	$('#address').val('');
+			    	$('#city').val('');		
+			    	$('#phone').val('');
+			    	$('#postalcode').val('');
+			    	$("#option_restaurateur").val(-1); 		    		
+		    	}
+		    	else{
+		    		$('#restaurant-create-success').hide();
+					$('#restaurant-create-warning').hide();	
+		    		$('#restaurant-create-error').show();			    		
+		    	}
+		    }        
+		});  		
+	}	
 };
 
 Restaurant.prototype.update = function(id,name,restaurateur_id,address,city,phone,postalcode) {
-      		$.ajax({
-			    type: "GET",
-			    url: app.config.getContext()+"action/api.php",
-			    data:{
-			    	action: 'updateRestaurant',
-			    	id:id,
-			    	name: name,
-			    	address: address,
-			    	city: city,
-			    	phone: phone,
-			    	postalcode: postalcode,
-			    	restaurateur_id: restaurateur_id,
-				},
-			    dataType: "html",
-			    success: function(result){
-			    	response = $.parseJSON(result);
-			    	if(response === 1){
-			    		if(restaurateur_id == -1){
-			    			$('#restaurant-update-warning').show();
-			    		}
-			    		else{
-			    			$('#restaurant-update-success').show();
-			    		}
-			    		$('#restaurant-update-error').hide();
-		    			app.entrepreneur.getRestaurants();			    		
-			    	}
-			    	else{
-			    		$('#restaurant-update-success').hide();
-		    			$('#restaurant-update-warning').hide();
-			    		$('#restaurant-update-error').show();			    		
-			    	}
-			    }        
-			});
+	var reFirstname =/^[A-Za-z\s]{1,}[\.-]{0,1}[A-Za-z\s]{0,}$/;
+	var rePhone =/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/;
+	var reAddress = /^([0-9]+)([A-Z])?,\s(?:(.*?)\s(?:APP|APT)\s(.*)|(.*))$/mgi;	
+	var rCity =/^[A-Za-z\s]{1,}[\-]{0,1}[A-Za-z\s]{0,}$/;
+	var rePostal = /(^[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ]\d[ABCEGHJKLMNPRSTVWXYZ]\d$)/;
+
+
+	var validFirstname = reFirstname.test(name);
+	var validPhone = rePhone.test(phone);
+	var validAddress = reAddress.test(address);
+	var validCity = rCity.test(city);
+	var validPostal = rePostal.test(postalcode);
+
+
+	if(!validFirstname || !validPhone || !validAddress || !validCity || !validPostal){
+		$('#restaurant-update-error').show();
+		$('#restaurant-update-success').hide();
+		$('#restaurant-update-error-message').text(' ');
+		if(!validFirstname)
+		{
+			$('#restaurant-update-error-message').append('<span>name non conforme</span></br>');
+		}
+		if(!validPhone )
+		{
+			$('#restaurant-update-error-message').append('<span>phone non conforme</span></br>');
+		}
+		if(!validAddress)
+		{
+			$('#restaurant-update-error-message').append('<span>address non conforme</span></br>');
+		}
+		if(!validCity )
+		{
+			$('#restaurant-update-error-message').append('<span>city non conforme</span></br>');
+		}
+		if(!validPostal)
+		{
+			$('#restaurant-update-error-message').append('<span>postalcode non conforme</span></br>');
+		}
+	}
+	else{
+		$.ajax({
+		    type: "GET",
+		    url: app.config.getContext()+"action/api.php",
+		    data:{
+		    	action: 'updateRestaurant',
+		    	id:id,
+		    	name: name,
+		    	address: address,
+		    	city: city,
+		    	phone: phone,
+		    	postalcode: postalcode,
+		    	restaurateur_id: restaurateur_id,
+			},
+		    dataType: "html",
+		    success: function(result){
+		    	response = $.parseJSON(result);
+		    	if(response === 1){
+		    		if(restaurateur_id == -1){
+		    			$('#restaurant-update-warning').show();
+		    		}
+		    		else{
+		    			$('#restaurant-update-success').show();
+		    		}
+		    		$('#restaurant-update-error').hide();
+	    			app.entrepreneur.getRestaurants();			    		
+		    	}
+		    	else{
+		    		$('#restaurant-update-success').hide();
+	    			$('#restaurant-update-warning').hide();
+		    		$('#restaurant-update-error').show();			    		
+		    	}
+		    }        
+		}); 		
+	}		
 };
 
 Restaurant.prototype.del = function(id) {

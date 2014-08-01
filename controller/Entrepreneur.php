@@ -9,6 +9,7 @@ class Entrepreneur
 {
 	function __construct() {}
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Restaurateur
 	public static function getRestaurateur()
 	{
@@ -127,6 +128,7 @@ class Entrepreneur
 		echo json_encode($result);
 	}
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Restaurant
 	public static function getRestaurant()
 	{
@@ -215,6 +217,82 @@ class Entrepreneur
 		$id = $_GET['id'];
 		$result= Restaurant::delete($id);
 		echo json_encode($result);	
+	}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// Livreur
+	public static function getLivreur()
+	{
+		$id = $_GET['id'];
+		$user = User::getUserById($id);
+		echo json_encode($user);
+	}
+
+	public static function getLivreurs()
+	{
+		$users = User::getUsers('livreur');
+		echo json_encode($users);
+	}
+
+	public static function createLivreur()
+	{
+		$livPassword = $_GET['password'];
+		$livFirstname = $_GET['firstname'];
+		$livLastname = $_GET['lastname'];
+		$livMail = $_GET['mail'];
+
+
+		$user = (empty($livMail) || empty($livPassword) || empty($livFirstname) || empty($livLastname));
+
+		if($user) 
+		{
+			echo json_encode(0);
+		}
+		else 
+		{
+			$user = User::userExist($livMail);
+
+			if($user != null)
+			{
+				echo json_encode(2);
+			}
+			else
+			{
+				$user = new User();
+				$user->setPassword($livPassword);
+				$user->setFirstname($livFirstname);
+				$user->setLastname($livLastname);
+				$user->setType('livreur'); 
+				$user->setMail($livMail);
+				$user->save();
+
+				echo json_encode(1);
+			}
+		}
+	}
+
+	public static function updateLivreurPassword()
+	{
+		$id = $_GET['id'];
+		$livPassword = $_GET['password'];
+
+		if(empty($livPassword)) 
+		{
+			echo json_encode(0);
+		}
+		else 
+		{
+			$user=User::getUserById($id);
+			$user->changePassword($livPassword);
+			$userResult=$user->save();
+			echo json_encode(1);
+		}
+	}
+
+	public static function delLivreur()
+	{
+		$id = $_GET['id'];
+		$result= User::delete($id);	
+		echo json_encode($result);
 	}
 }
 ?>

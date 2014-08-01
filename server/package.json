@@ -1,0 +1,9 @@
+{
+  "name": "socket-order",
+  "version": "0.0.1",
+  "description": "order fetch for restaurant",
+  "dependencies": {
+    "express": "4.3.1",
+    "socket.io": "~1.0.2"
+  }
+}

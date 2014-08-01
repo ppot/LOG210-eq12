@@ -1,41 +1,75 @@
 function Restaurateur () {}
 
 Restaurateur.prototype.create = function(firstname,lastname,password,mail,restaurant_id) {
-	$.ajax({
-	    type: "GET",
-	    url: app.config.getContext()+"action/api.php",
-	    data:{
-	    	action: 'createRestaurateur',
-	    	firstname: firstname,
-	    	lastname:  lastname,
-	    	password: password,
-	    	mail: mail,
-	    	restaurant: restaurant_id,
-		},
-	    dataType: "html",
-	    success: function(result){
-	    	response = $.parseJSON(result);
-	    	if(response === 1){
-	    		if(restaurant_id == -1){
-					$('#restaurateur-create-warning').show();
-	    		}
-	    		else{
-		    		$('#restaurateur-create-success').show();
-		    		$('#restaurateur-create-error').hide();			    			
-	    		}
-	     		$('#firstname').val('');
-				$('#lastname').val('');
-				$('#password').val('');
-				$('#mail').val('');
-				$("#option_restaurant").val(-1);
-	    	}
-	    	else{
-				$('#restaurateur-create-warning').hide();
-	    		$('#restaurateur-create-success').hide();
-	    		$('#restaurateur-create-error').show();			    		
-	    	}
-	    }        
-	});
+	var rePassword =/^(?=.{5,19}$)(?=.*[a-zA-Z]).*/;
+	var reFirstname =/^[A-Za-z\s]{1,}[\.-]{0,1}[A-Za-z\s]{0,}$/;
+	var reLastname =/^[A-Za-z\s]{1,}[\.]{0,1}[A-Za-z\s]{0,}$/;
+    var reMail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+	var validFirstname = reFirstname.test(firstname);
+	var validLastname = reLastname.test(lastname);
+	var validPassword = rePassword.test(password);
+	var validMail = reMail.test(mail);
+
+	if(!validFirstname || !validLastname || !validPassword || !validMail){
+	 	$('#restaurateur-create-error').show();
+		$('#restaurateur-create-success').hide();
+		$('#restaurateur-create-error-message').text('');
+		if(!validFirstname)
+		{
+			$('#restaurateur-create-error-message').append('<span>firstname non conforme</span></br>');
+		}
+		if(!validLastname)
+		{
+			$('#restaurateur-create-error-message').append('<span>lastname non conforme</span></br>');
+		}		
+		if(!validPassword)
+		{
+			$('#restaurateur-create-error-message').append('<span>password non conforme</span></br>');
+		}
+		if(!validMail)
+		{
+			$('#restaurateur-create-error-message').append('<span>mail non conforme</span></br>');
+		}
+
+	}
+	else{
+		$.ajax({
+		    type: "GET",
+		    url: app.config.getContext()+"action/api.php",
+		    data:{
+		    	action: 'createRestaurateur',
+		    	firstname: firstname,
+		    	lastname:  lastname,
+		    	password: password,
+		    	mail: mail,
+		    	restaurant: restaurant_id,
+			},
+		    dataType: "html",
+		    success: function(result){
+		    	response = $.parseJSON(result);
+		    	if(response === 1){
+		    		if(restaurant_id == -1){
+						$('#restaurateur-create-warning').show();
+		    		}
+		    		else{
+			    		$('#restaurateur-create-success').show();
+			    		$('#restaurateur-create-error').hide();			    			
+		    		}
+		     		$('#firstname').val('');
+					$('#lastname').val('');
+					$('#password').val('');
+					$('#mail').val('');
+					$("#option_restaurant").val(-1);
+		    	}
+		    	else{
+					$('#restaurateur-create-warning').hide();
+		    		$('#restaurateur-create-success').hide();
+		    		$('#restaurateur-create-error').show();			    		
+		    	}
+		    }        
+		});
+	}
 };
 
 Restaurateur.prototype.get = function(id) {
@@ -60,29 +94,40 @@ Restaurateur.prototype.get = function(id) {
 };
 
 Restaurateur.prototype.updatePassword = function(id,password) {
-	$.ajax({
-	    type: "GET",
-	    url: app.config.getContext()+"action/api.php",
-	    data:{
-	    	action: 'updateRestaurateurPassword',
-	    	id: id,
-	    	password: password,
-		},
-	    dataType: "html",
-	    success: function(result){
-	    	response = $.parseJSON(result);
-	    	if(response === 1){
-	    		$('#restaurateur-update-success').show();
-	    		$('#restaurateur-update-error').hide();
-	    		$('#restaurateur-update-success-message').text('le mot de passe a ete changer');
-	    	}
-	    	else{
-	    		$('#restaurateur-update-success').hide();
-	    		$('#restaurateur-update-error').show();
-	    		$('#restaurateur-update-error-message').text('erreur dans le changement du mot de passe');			    		
-	    	}
-	    }        
-	});	
+	var rePassword =/^(?=.{5,19}$)(?=.*[a-zA-Z]).*/;
+
+	if(!rePassword.test(password))
+	{
+	 	$('#restaurateur-update-error').show();
+		$('#restaurateur-update-success').hide();
+		$('#restaurateur-update-error-message').text(' ');
+		$('#restaurateur-update-error-message').append('<span>password non conforme</span></br>');
+	}
+	else{
+		$.ajax({
+		    type: "GET",
+		    url: app.config.getContext()+"action/api.php",
+		    data:{
+		    	action: 'updateRestaurateurPassword',
+		    	id: id,
+		    	password: password,
+			},
+		    dataType: "html",
+		    success: function(result){
+		    	response = $.parseJSON(result);
+		    	if(response === 1){
+		    		$('#restaurateur-update-success').show();
+		    		$('#restaurateur-update-error').hide();
+		    		$('#restaurateur-update-success-message').text('le mot de passe a ete changer');
+		    	}
+		    	else{
+		    		$('#restaurateur-update-success').hide();
+		    		$('#restaurateur-update-error').show();
+		    		$('#restaurateur-update-error-message').text('erreur dans le changement du mot de passe');			    		
+		    	}
+		    }        
+		});
+	}
 };
 
 Restaurateur.prototype.updateRestaurant = function(id,restaurant_id) {

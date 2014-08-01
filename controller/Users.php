@@ -11,7 +11,7 @@
 			$user = User::getCurrentUser();
 			 echo json_encode($user);
 		}
-        
+		
        	public static function oauth()
        	 {
        	 	$result = User::getUser($_GET['mail'],$_GET['password']);
@@ -156,6 +156,15 @@
 		public static function getDeliveryAddress()
 		{
 			$user = User::getCurrentUser();
+			$address = $user->getDeliveryAddress();
+			echo json_encode($address);
+		}
+
+		public static function getDeliveryAddressByUserId()
+		{
+			$id = $_GET['id'];
+
+			$user = User::getUserById($id);
 			$address = $user->getDeliveryAddress();
 			echo json_encode($address);
 		}

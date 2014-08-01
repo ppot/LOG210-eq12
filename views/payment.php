@@ -1,10 +1,13 @@
 <?php
 	require_once('../controller/Orders.php');
+	require_once('../models/User.php');
+	require_once('../action/mail.php');
 	require_once("../partials/header.php");
 ?>
 <?php
 	$pdtToken = "k-6RHEZ4iJofn8L_ii1sJV6P7FUll0hValoWksgBlVkWVGQ0zq6-_yj_FsS";
 
+	$user=User::getCurrentUser();
 	if(isset($_GET['tx']))
 	{
 	$tx = $_GET['tx'];
@@ -12,10 +15,13 @@
 	$items = json_decode($_SESSION['cart']);
 	$command = json_decode($_SESSION['command']);
 
-	$order = Orders::paypalPaymentOrder($command->clientId,$command->addressId,$command->restaurantId,$tx,$command->date,$command->time,$command->total);
+	$order = Orders::paypalPaymentOrder($command->clientId,$command->addressId,$command->restaurantId,$tx,$command->date,$command->temps,$command->total);
 	foreach ($items as $item) {
 		Orders::paypalPaymentItems($order->id,$item->id,$item->qte);
 	}
+
+	$message = "Order paid with validation token :".$tx;
+	Mail::sendMail($user->firstname,$user->lastname,$user->mail,$message);
 	  // Init cURL
 	$request = curl_init();
 
@@ -107,7 +113,7 @@
 
              	<div class="" id="order-success">
              		<span>livraison le :   <label id="ordeDate-success"><?php echo $command->date; ?></label></span>
-             		<span>pour :   <label id="ordeTime-success"><?php echo $command->time; ?></label></span>
+             		<span>pour :   <label id="ordeTime-success"><?php echo $command->temps; ?></label></span>
 								<span class="box">
 		          		<div class="col-md-7 col-md-offset-2 alert-success text-center space">
 		          			<span id="order-success-message">
@@ -136,6 +142,11 @@
 </div>
 
 <script type="text/javascript">
+			var orderId = <?php echo $order->id ?>;
+			var socket = io('http://localhost:3000');
+			socket.emit('newOrder',orderId);
+			socket.emit('disconnect');
+
 			$(document).ready(function(){
 				$.ajax({
 				    type: "GET",

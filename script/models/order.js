@@ -6,7 +6,7 @@ function Order () {
 	this.livreurId = null;
 	this.noConfirmation = null;
 	this.date = null;
-	this.time = null;
+	this.temps = null;
 	this.state = null;
 	this.total =null;
 }
@@ -34,7 +34,7 @@ Order.prototype.setDate = function(date) {
 };
 
 Order.prototype.setTime = function(time) {
-	this.setTime = time;
+	this.temps = time;
 };
 
 Order.prototype.setState = function(state) {
@@ -45,16 +45,135 @@ Order.prototype.setTotal = function(total) {
 	this.total = total;
 };
 
-// order.prototype.save = function() {
-//  	$.ajax({
-// 	    type: "GET",
-// 	    url: "/LOG210-eq12/action/api.php",
-// 	    data:{
-// 	    	action: 'createOrder',	
-// 		},
-// 	    dataType: "html",
-// 	    success: function(result){
- 									 	
-// 	    }        
-// 	});  
-// };
+Order.prototype.get = function(id) {
+	$.ajax({
+	    type: "GET",
+	    url: app.config.getContext()+"action/api.php",
+	    data:{
+	    	action: 'getOrder',
+	    	order_id:id,
+		},
+	    dataType: "html",
+	    success: function(result){
+	    	order = $.parseJSON(result);
+	    	$('#orderId').text(order.no_confirmation);
+	    	$('#order_total').text(order.total);
+	    }        
+	});
+};
+
+Order.prototype.getItems = function(id) {
+ 	$.ajax({
+	    type: "GET",
+	    url: app.config.getContext()+"action/api.php",
+	    data:{
+	    	action: 'getOrderItems',
+	    	order_id:id,				
+		},
+	    dataType: "html",
+	    success: function(result){
+			$.each($.parseJSON(result), function(idx, obj) {
+	    	 	$.ajax({
+				    type: "GET",
+				    url: app.config.getContext()+"action/api.php",
+				    data:{
+				    	action: 'getPlat',
+				    	id:obj.plat_id,				
+					},
+				    dataType: "html",
+				    success: function(result){
+				    	plat = $.parseJSON(result);
+				    	$('#order-items').html('');
+				    	$('#order-items').append('<tr id="cart_item"'+plat.id+'>><td>'+plat.name+'</td><td>'+plat.price+'$</td><td class="pull-right" id="qte_"'+plat.id+'>'+obj.quantity+'</td></tr>');
+				    }        
+				});	
+			});
+
+
+	    }        
+	}); 
+};
+
+Order.prototype.ready = function(id) {
+	$.ajax({
+	    type: "GET",
+	    url: app.config.getContext()+"action/api.php",
+	    data:{
+	    	action: 'orderReady',
+	    	order_id:id,
+		},
+	    dataType: "html",
+	    success: function(result){
+	    	order = $.parseJSON(result);
+			$('#order'+id).remove();
+			var socket = io('http://localhost:3000');
+			socket.emit('newDeliveryOrder',order.id);
+			socket.emit('disconnect');
+	    }        
+	});
+};
+
+Order.prototype.deliver = function(id) {
+	$.ajax({
+	    type: "GET",
+	    url: app.config.getContext()+"action/api.php",
+	    data:{
+	    	action: 'orderDeliver',
+	    	order_id:id,
+		},
+	    dataType: "html",
+	    success: function(result){
+	    	order = $.parseJSON(result);
+			$('#order'+id).remove();
+	    }        
+	});
+};
+
+
+Order.prototype.setClientAddress = function(id) {
+	$(document).ready(function(){
+		$.ajax({
+		    type: "GET",
+		    url: app.config.getContext()+"action/api.php",
+		    data:{
+		    	action: 'getDeliveryAddressByUserId',
+		    	id: id				
+			},
+		    dataType: "html",
+		    success: function(result){
+		     	address = $.parseJSON(result);
+		    	$('#route_de_livraison_client').val(address.postalcode);     	
+		    }        
+		});   		
+	});
+};
+
+Order.prototype.setRestaurantAddress = function(id) {
+	$.ajax({
+	    type: "GET",
+	    url: app.config.getContext()+"action/api.php",
+	    data:{
+	    	action: 'getOrder',
+	    	order_id:id,
+		},
+	    dataType: "html",
+	    success: function(result){
+	    	order = $.parseJSON(result);
+
+	    	$.ajax({
+			    type: "GET",
+			    url: app.config.getContext()+"action/api.php",
+			    data:{
+			    	action: 'getRestaurant',
+			    	id: order.id,
+				},
+			    dataType: "html",
+			    success: function(result){
+			    	restaurant = $.parseJSON(result);
+			    	$('#route_de_livraison_restaurant').val(restaurant.address.postalcode);
+			    }        
+			});
+	    }        
+	});
+};
+
